@@ -1,21 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Card from './index.tsx';
+import Label from './index.tsx';
 
 const meta = {
-	title: 'DPS/Components/Card',
-	component: Card,
+	title: 'DPS/Components/Label',
+	component: Label,
 	parameters: {
 		layout: 'centered'
 	},
 	tags: ['autodocs'],
-	argTypes: { children: { table: { disable: true } }},
 	args: {}
-} satisfies Meta<typeof Card>;
+} satisfies Meta<typeof Label>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+	args: {
+		text: 'Label'
+	}
 };
 
 
