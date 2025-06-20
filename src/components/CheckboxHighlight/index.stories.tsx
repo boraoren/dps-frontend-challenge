@@ -1,27 +1,32 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Checkbox from './index.tsx';
+import CheckboxHighlight from './index.tsx';
 import { fn } from '@storybook/test';
 
 const meta = {
-	title: 'DPS/Components/Checkbox',
-	component: Checkbox,
+	title: 'DPS/Components/CheckboxHighlight',
+	component: CheckboxHighlight,
 	parameters: {
 		layout: 'centered'
 	},
 	tags: ['autodocs'],
-	args: { onChange: fn() }
-} satisfies Meta<typeof Checkbox>;
+	args: {
+		onChange: fn()
+	}
+} satisfies Meta<typeof CheckboxHighlight>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-	args: {}
+	args: {
+		labelText: 'Highlight oldest per city'
+	}
 };
 
 
 export const Checked: Story = {
 	args: {
+		labelText: 'Highlight oldest per city',
 		checked: true
 	}
 };
