@@ -2,33 +2,28 @@ import Label from '../../../Label';
 import './index.css';
 import { CSSProperties } from 'react';
 
-interface TableListItem {
+interface Item {
 	values: string[];
 	selected?: boolean;
 }
 
 interface TableListItemProps {
-	items: TableListItem[];
+	item: Item;
 }
 
 const TableListItem = (props: TableListItemProps) => {
 
-	const { items } = props;
+	const { item } = props;
+
+	const itemSelectedStyle: CSSProperties = {
+		background: item.selected ? '#AFD7FB' : 'white',
+		borderRadius: 50
+	};
 
 	return (
-		<tr className="tableListItem">
-			{items.map((item) => {
-
-				const itemSelectedStyle: CSSProperties = {
-					background: item.selected ? '#AFD7FB' : 'white',
-					borderRadius: 50,
-				};
-
-				const tds = item.values.map((value) => {
-					return <td><Label text={value} /></td>;
-				});
-
-				return <tr style={itemSelectedStyle}>{tds}</tr>;
+		<tr className="tableListItem" style={itemSelectedStyle}>
+			{item.values.map((value) => {
+				return <td><Label text={value} /></td>;
 			})}
 		</tr>
 	);

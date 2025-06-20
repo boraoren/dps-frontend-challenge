@@ -14,17 +14,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const item = {
+	values: ['Alotta Fudge', 'New York', '1.3.1995' ],
+};
+
 export const Default: Story = {
 	args: {
-		items: [{
-			values: ['Alotta Fudge', 'New York', '1.3.1995' ],
-		},
-		{
-			values: ['Stan Still', 'Dallas', '31.10.1952' ],
-			selected: true
-		}]
+		item
 	}
 };
+
+export const Selected: Story = {
+	args: {
+		item: {...item, selected: true}
+	}
+};
+
 
 
 
