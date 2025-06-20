@@ -1,0 +1,16 @@
+.tableHeader {
+    display: flex;
+    flex-wrap: wrap; /* 👈 allows items to stack if too narrow */
+    justify-content: space-around;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-color: black;
+    border-width: 3px;
+    border-style: solid;
+    padding: 8px 12px;
+    gap: 10px;
+}
