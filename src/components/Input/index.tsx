@@ -9,10 +9,11 @@ interface InputProps {
 	type?: InputType;
 	title: string;
 	onChange: (value: string) => void;
+	placeHolder?: string;
 }
 
 const Input = (props: InputProps) => {
-	const { type, title, onChange } = props;
+	const { type, title, onChange, placeHolder } = props;
 
 	switch (type) {
 	case InputType.PASSWORD:
@@ -23,7 +24,7 @@ const Input = (props: InputProps) => {
 	default:
 		return <InputContainer>
 			<Label text={title} />
-			<InputText className={styles.input} onChange={onChange} />
+			<InputText className={styles.input} onChange={onChange} placeHolder={placeHolder}/>
 		</InputContainer>;
 	}
 
