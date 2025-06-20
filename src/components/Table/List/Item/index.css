@@ -1,5 +1,7 @@
 .tableListItem{
+    display: flex;
     border-spacing: 0 10px;
+    justify-content: space-around;
 }
 
 .tableListItem td {
@@ -14,4 +16,8 @@
 .tableListItem td:last-child {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+}
+
+.tableListItem div{
+    width: 150px;
 }

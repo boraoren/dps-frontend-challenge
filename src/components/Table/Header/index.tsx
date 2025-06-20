@@ -1,4 +1,5 @@
 import './index.css';
+import Label from '../../Label';
 
 export interface TableHeaderProps {
 	headers: string[];
@@ -9,11 +10,11 @@ const TableHeader = (props: TableHeaderProps) => {
 	const { headers } = props;
 
 	return (
-		<tr className="tableHeader">
+		<div className="tableHeader">
 			{headers.map((header) => {
-				return <th>{header}</th>;
+				return <Label text={header} bold/>;
 			})}
-		</tr>
+		</div>
 	);
 };
 

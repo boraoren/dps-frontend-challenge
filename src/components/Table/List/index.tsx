@@ -3,7 +3,7 @@ import './index.css';
 
 interface Item {
 	values: string[];
-	selected?: boolean;
+	highlighted?: boolean;
 }
 
 export interface TableListProps{

@@ -24,9 +24,9 @@ export const Default: Story = {
 	}
 };
 
-export const Selected: Story = {
+export const Highlighted: Story = {
 	args: {
-		item: {...item, selected: true}
+		item: {...item, highlighted: true}
 	}
 };
 

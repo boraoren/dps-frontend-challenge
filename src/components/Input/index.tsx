@@ -8,22 +8,23 @@ import InputContainer from './Container';
 export interface InputProps {
 	type?: InputType;
 	title: string;
+	titleBold?: boolean;
 	onChange: (value: string) => void;
 	placeHolder?: string;
 }
 
 const Input = (props: InputProps) => {
-	const { type, title, onChange, placeHolder } = props;
+	const { type, title, titleBold, onChange, placeHolder } = props;
 
 	switch (type) {
 	case InputType.PASSWORD:
 		return <InputContainer>
-			<Label text={title} />
+			<Label text={title} bold={titleBold}/>
 			<InputPassword className={styles.input} onChange={onChange} />
 		</InputContainer>;
 	default:
 		return <InputContainer>
-			<Label text={title} />
+			<Label text={title} bold={titleBold}/>
 			<InputText className={styles.input} onChange={onChange} placeHolder={placeHolder}/>
 		</InputContainer>;
 	}

@@ -27,13 +27,13 @@ export const Default: Story = {
 
 
 
-export const Selected: Story = {
+export const Highlighted: Story = {
 	args: {
 		items: [{
 			values: ['Alotta Fudge', 'New York', '1.3.1995' ],
 		},{
 			values: ['Stan Still', 'Dallas', '31.10.1952' ],
-			selected: true
+			highlighted: true
 		}]
 	}
 };

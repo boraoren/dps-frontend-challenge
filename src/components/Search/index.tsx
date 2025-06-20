@@ -6,6 +6,7 @@ import SelectOption from './Select/index.option.ts';
 
 export interface SearchProps {
 	title: string;
+	titleBold?: boolean;
 	onChange: (selected: string) => void;
 	placeHolder: string;
 	selectOptions: SelectOption[];
@@ -13,11 +14,11 @@ export interface SearchProps {
 
 const Search = (props: SearchProps) => {
 
-	const { title, selectOptions,placeHolder, onChange } = props;
+	const { title, titleBold, selectOptions,placeHolder, onChange } = props;
 
 	return (
 		<SearchContainer>
-			<Label text={title} />
+			<Label text={title} bold={titleBold}/>
 			<SearchSelect selectOptions={selectOptions} onChange={onChange} placeHolder={placeHolder} />
 		</SearchContainer>
 	);

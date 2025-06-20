@@ -35,15 +35,17 @@ const getCitiesForSelectOptions = async (): Promise<SelectOption[]> => {
 export const Default: Story = {
 	render: (args) => {
 		return (
-			<Filter name={{...args.name, onChange: action('name changed')}} checkboxHighlightOldestPerCity={{...args.checkboxHighlightOldestPerCity, onChange: action('is checked')}} searchCity={{...args.searchCity, onChange: action('city changed')}}/>
+			<Filter name={{...args.name, onChange: action('name changed')}} checkboxHighlightOldestPerCity={{...args.checkboxHighlightOldestPerCity, onChange: action('checked')}} searchCity={{...args.searchCity, onChange: action('city changed')}}/>
 		);
 	},
 	args: {
 		name: {
 			title: 'Name',
+			titleBold: true
 		},
 		searchCity: {
 			title: 'City',
+			titleBold: true,
 			placeHolder: 'Select City',
 			selectOptions: await getCitiesForSelectOptions()
 

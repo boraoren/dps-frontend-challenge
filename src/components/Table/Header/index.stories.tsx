@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		headers:['name','city','birthday']
+		headers:['Name','City','Birthday']
 	}
 };
 

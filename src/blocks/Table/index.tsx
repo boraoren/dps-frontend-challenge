@@ -7,7 +7,7 @@ interface TableListItem {
 	selected?: boolean;
 }
 
-interface TableProps {
+export interface TableProps {
 	tableHeaders: string[],
 	tableListItems: TableListItem[],
 }

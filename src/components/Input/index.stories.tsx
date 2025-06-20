@@ -22,6 +22,13 @@ export const Text: Story = {
 	}
 };
 
+export const TextTitleBold: Story = {
+	args: {
+		type: InputType.TEXT,
+		titleBold: true
+	}
+};
+
 
 export const Password: Story = {
 	args: {

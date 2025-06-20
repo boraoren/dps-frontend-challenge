@@ -4,7 +4,7 @@ import { CSSProperties } from 'react';
 
 interface Item {
 	values: string[];
-	selected?: boolean;
+	highlighted?: boolean;
 }
 
 interface TableListItemProps {
@@ -16,16 +16,17 @@ const TableListItem = (props: TableListItemProps) => {
 	const { item } = props;
 
 	const itemSelectedStyle: CSSProperties = {
-		background: item.selected ? '#AFD7FB' : 'white',
-		borderRadius: 50
+		background: item.highlighted ? '#AFD7FB' : 'white',
+		borderRadius: 10,
+		padding: 5
 	};
 
 	return (
-		<tr className="tableListItem" style={itemSelectedStyle}>
+		<div className="tableListItem" style={itemSelectedStyle}>
 			{item.values.map((value) => {
-				return <td><Label text={value} /></td>;
+				return <div><Label text={value} /></div>;
 			})}
-		</tr>
+		</div>
 	);
 };
 
