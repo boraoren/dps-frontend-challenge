@@ -5,7 +5,7 @@ import InputPassword from './Password';
 import Label from '../Label';
 import InputContainer from './Container';
 
-interface InputProps {
+export interface InputProps {
 	type?: InputType;
 	title: string;
 	onChange: (value: string) => void;

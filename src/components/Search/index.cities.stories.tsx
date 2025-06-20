@@ -11,7 +11,7 @@ const meta = {
 		layout: 'centered'
 	},
 	tags: ['autodocs'],
-	args: {onChange: fn()}
+	args: { onChange: fn() }
 } satisfies Meta<typeof Search>;
 
 export default meta;
@@ -22,10 +22,10 @@ const getCitiesForSelectOptions = async (): Promise<SelectOption[]> => {
 	const users = await Services.user.getList(limitMax);
 	const cities = Services.city.getList(users);
 	const citiesSorted = Services.city.sortList(cities);
-	return citiesSorted.map((city)=>{
+	return citiesSorted.map((city) => {
 		return {
 			text: city,
-			value: city,
+			value: city
 		} as SelectOption;
 	});
 };
@@ -34,15 +34,7 @@ export const Default: Story = {
 	args: {
 		title: 'City',
 		placeHolder: 'Select City',
-		selectOptions: [{
-			value: '',
-			disabled: true,
-			selected: true,
-			text: 'Select City'
-		},...await getCitiesForSelectOptions()]
-
-
-
+		selectOptions: await getCitiesForSelectOptions()
 	}
 };
 

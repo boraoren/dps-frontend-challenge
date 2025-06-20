@@ -2,7 +2,7 @@ import Checkbox from '../Checkbox';
 import CheckboxHighlightContainer from './Container';
 import Label from '../Label';
 
-interface CheckboxHighlightProps{
+export interface CheckboxHighlightProps{
 	labelText: string;
 	checked?: boolean;
 	onChange: (checked: boolean) => void;
