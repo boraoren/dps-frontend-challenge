@@ -1,10 +1,10 @@
 import './index.css';
 
-interface TableHeader {
+export interface TableHeaderProps {
 	headers: string[];
 }
 
-const TableHeader = (props: TableHeader) => {
+const TableHeader = (props: TableHeaderProps) => {
 
 	const { headers } = props;
 
