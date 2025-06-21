@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Table from './index.tsx';
+import Features from '../../features';
 
 const meta = {
 	title: 'DPS/Blocks/Table',
@@ -14,6 +15,9 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+
+const usersTable = await Features.users.table();
 
 export const Default: Story = {
 	args: {

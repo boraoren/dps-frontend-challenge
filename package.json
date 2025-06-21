@@ -9,7 +9,11 @@
     "lint": "eslint . --ext ts,tsx,js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:watchAll": "jest --watchAll",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -17,14 +21,15 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3",
+    "@storybook/addon-actions": "8.6.14",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-onboarding": "8.6.14",
-    "@storybook/addon-actions": "8.6.14",
     "@storybook/blocks": "^8.6.14",
     "@storybook/experimental-addon-test": "^8.6.14",
     "@storybook/react": "8.6.14",
     "@storybook/react-vite": "8.6.14",
     "@storybook/test": "^8.6.14",
+    "@types/jest": "^30.0.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
@@ -36,8 +41,11 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "eslint-plugin-storybook": "0.12.0",
+    "jest": "^30.0.2",
     "playwright": "^1.53.1",
     "storybook": "8.6.14",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.5.2",
     "vite": "^5.3.1",
     "vitest": "^3.2.4"

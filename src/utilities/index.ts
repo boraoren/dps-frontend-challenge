@@ -1,10 +1,12 @@
-const Utilities = {
-	test: () => {
+import UtilitiesSet from './set';
+import UtilitiesTest from './test';
+import UtilitiesArray from './array';
 
-	},
-	isEmptySet<T>(set: Set<T>): boolean {
-		return set.size === 0;
-	}
+
+const Utilities = {
+	set: UtilitiesSet,
+	test: UtilitiesTest,
+	array: UtilitiesArray,
 };
 
 export default Utilities;
