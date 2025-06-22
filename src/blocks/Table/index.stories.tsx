@@ -38,7 +38,7 @@ export const Selected: Story = {
 		},
 		{
 			values: ['Stan Still', 'Dallas', '31.10.1952'],
-			selected: true
+			highlighted: true,
 		}]
 	}
 };

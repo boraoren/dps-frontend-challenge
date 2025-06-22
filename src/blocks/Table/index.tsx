@@ -4,7 +4,7 @@ import TableContainer from './Container';
 
 interface TableListItem {
 	values: string[];
-	selected?: boolean;
+	highlighted?: boolean;
 }
 
 export interface TableProps {

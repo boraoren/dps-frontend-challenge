@@ -7,7 +7,7 @@ interface Item {
 	highlighted?: boolean;
 }
 
-interface TableListItemProps {
+export interface TableListItemProps {
 	item: Item;
 }
 
