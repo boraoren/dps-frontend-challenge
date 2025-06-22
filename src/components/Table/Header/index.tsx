@@ -1,5 +1,6 @@
 import './index.css';
 import Label from '../../Label';
+import Utilities from '../../../utilities';
 
 export interface TableHeaderProps {
 	headers: string[];
@@ -12,7 +13,7 @@ const TableHeader = (props: TableHeaderProps) => {
 	return (
 		<div className="tableHeader">
 			{headers.map((header) => {
-				return <Label text={header} bold/>;
+				return <Label text={Utilities.string.toReadableText(header)} bold />;
 			})}
 		</div>
 	);

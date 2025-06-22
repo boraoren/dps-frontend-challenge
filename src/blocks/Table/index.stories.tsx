@@ -44,7 +44,7 @@ export const Selected: Story = {
 };
 
 //TODO fix ts
-const selectedFields = ['firstName','lastName','birthDate'];
+const selectedFields = ['firstName','lastName','birthDate', 'address.city','gender'];
 
 const usersTable = Features
 	.users
