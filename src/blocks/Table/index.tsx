@@ -10,17 +10,18 @@ interface TableListItem {
 export interface TableProps {
 	tableHeaders: string[],
 	tableListItems: TableListItem[],
+	onScrollEnd: () => void;
 }
 
 const Table = (props: TableProps) => {
 
-	const { tableHeaders, tableListItems } = props;
+	const { tableHeaders, tableListItems, onScrollEnd } = props;
 	return (
 		<TableContainer>
 			<div style={{marginBottom: -2}}>
 				<TableHeader headers={tableHeaders} />
 			</div>
-			<TableList items={tableListItems} />
+			<TableList items={tableListItems} onScrollEnd={onScrollEnd}/>
 		</TableContainer>
 	);
 };

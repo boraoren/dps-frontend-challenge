@@ -10,24 +10,33 @@ describe('integration.features.users.table', () => {
 
 	given('selected fields, limitMax', () => {
 		const selectedFields = ['firstName', 'email', 'address.city'] as const;
-		const limit = 1;
+		const limit = 5;
 
 		when('fetcher is called with selected fields', () => {
 			//TODO fix type
-			const usersTable = Features.users.table(selectedFields,limit);
+			const usersTable = Features.users.getTable(selectedFields,limit);
 
 			then('it returns only selected fields from user list', async () => {
 				const table = await usersTable();
-				const expectedTable = {
-					searchCitySelectOptions: ["Phoenix"],
+				const expectedTableForPage1 = {
 					tableHeaders: ["firstName", "email", "city"],
 					tableListItems: [
 						{
 							values: ["Emily", "emily.johnson@x.dummyjson.com", "Phoenix"]
+						},{
+							values: ["Michael", "michael.williams@x.dummyjson.com","Houston"]
+						},{
+							values: ["Sophia", "sophia.brown@x.dummyjson.com","Washington"]
+						},{
+							values: ["James", "james.davis@x.dummyjson.com","Seattle"]
+						},{
+							values: ["Emma", "emma.miller@x.dummyjson.com","Jacksonville"]
 						}
 					]
 				};
-				expect(table).toEqual(expectedTable);
+				expect(table).toEqual(expectedTableForPage1);
+
+
 			});
 		});
 	});

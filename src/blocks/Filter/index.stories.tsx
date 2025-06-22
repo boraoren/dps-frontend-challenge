@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Filter from './index.tsx';
 import { action } from '@storybook/addon-actions';
-import SelectOption from '../../components/Search/Select/index.option.ts';
-import Services from '../../services';
+import SelectOption from '../../components/Select/Item/index.option.ts';
+import Features from '../../features';
 
 const meta = {
 	title: 'DPS/Blocks/Filter',
@@ -19,24 +19,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const getCitiesForSelectOptions = async (): Promise<SelectOption[]> => {
-	const limitMax = await Services.user.getLimitMax();
-	const selectFields = ['firstName', 'lastName', 'birthDate', 'address'];
-	const users = await Services.user.getList(selectFields,limitMax);
-	const cities = Services.city.getList(users);
-	const citiesSorted = Services.city.sortList(cities);
-	return citiesSorted.map((city) => {
-		return {
-			text: city,
-			value: city
-		} as SelectOption;
-	});
-};
-
 export const Default: Story = {
 	render: (args) => {
 		return (
-			<Filter name={{...args.name, onChange: action('name changed')}} checkboxHighlightOldestPerCity={{...args.checkboxHighlightOldestPerCity, onChange: action('checked')}} searchCity={{...args.searchCity, onChange: action('city changed')}}/>
+			<Filter name={{...args.name, onChange: action('name changed')}} checkboxHighlightOldestPerCity={{...args.checkboxHighlightOldestPerCity, onChange: action('checked')}} selectCity={{...args.selectCity, onChange: action('city changed')}}/>
 		);
 	},
 	args: {
@@ -44,11 +30,11 @@ export const Default: Story = {
 			title: 'Name',
 			titleBold: true
 		},
-		searchCity: {
+		selectCity: {
 			title: 'City',
 			titleBold: true,
 			placeHolder: 'Select City',
-			selectOptions: await getCitiesForSelectOptions()
+			selectOptions: await Features.filters.city.getCities()
 
 		},
 		checkboxHighlightOldestPerCity: {

@@ -1,25 +1,25 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Search from './index.tsx';
+import Select from './index.tsx';
 import { fn } from '@storybook/test';
 import Services from '../../services';
-import SelectOption from './Select/index.option.ts';
+import SelectOption from './Item/index.option.ts';
 
 const meta = {
-	title: 'DPS/Components/Search',
-	component: Search,
+	title: 'DPS/Components/Select',
+	component: Select,
 	parameters: {
 		layout: 'centered'
 	},
 	tags: ['autodocs'],
 	args: { onChange: fn() }
-} satisfies Meta<typeof Search>;
+} satisfies Meta<typeof Select>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const getCitiesForSelectOptions = async (): Promise<SelectOption[]> => {
 	const limitMax = await Services.user.getLimitMax();
-	const selectFields = ['firstName', 'lastName', 'birthDate', 'address'];
+	const selectFields = ['address.city'];
 	const users = await Services.user.getList(selectFields,limitMax);
 	const cities = Services.city.getList(users);
 	const citiesSorted = Services.city.sortList(cities);
@@ -38,16 +38,5 @@ export const Default: Story = {
 		selectOptions: await getCitiesForSelectOptions()
 	}
 };
-
-/*
-
-<option value="" disabled selected>Select City</option>
-			<option value="istanbul">Istanbul</option>
-			<option value="ankara">Ankara</option>
-			<option value="izmir">Izmir</option>
-
-
- */
-
 
 

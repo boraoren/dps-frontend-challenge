@@ -9,8 +9,8 @@ type SelectableField<T> =
 
 const ServicesUser = {
 	getList: async <K extends readonly SelectableField<UserDomain>[]>
-	(selectFields: K, limitMax?: number): Promise<UserDomain[]> => {
-		const usersGetListApiResponse = await Api.getList(ApiPathName.USERS, selectFields, limitMax);
+	(selectFields: K, limitMax?: number, skip?: number): Promise<UserDomain[]> => {
+		const usersGetListApiResponse = await Api.getList(ApiPathName.USERS, selectFields, limitMax, skip);
 		return usersGetListApiResponse.users;
 	},
 	getLimitMax: async () => {

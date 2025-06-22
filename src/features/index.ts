@@ -1,8 +1,14 @@
-import FeaturesUsersTable from './users/table';
+import FeaturesUsersGetTable from './users/getTable';
+import FeaturesCityGetCities from './filters/city/getCities';
 
 const Features = {
 	users:{
-		table: FeaturesUsersTable
+		getTable: FeaturesUsersGetTable,
+	},
+	filters:{
+		city:{
+			getCities: FeaturesCityGetCities,
+		}
 	}
 };
 

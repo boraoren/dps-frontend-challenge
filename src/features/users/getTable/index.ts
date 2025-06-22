@@ -2,17 +2,19 @@ import Services from '../../../services';
 import UserDomain from '../../../services/User/index.domain.ts';
 
 //TODO fix type
-const FeaturesUsersTable = <
+const FeaturesUsersGetTable = <
 	const K extends readonly (keyof UserDomain)[]
 >(
 		selectFields: K,
 		limit?: number,
+		skip?:number,
 	): ( () => Promise<Pick<UserDomain, K[number]>[]>) => {
+	//TODO fix type
 	return async () => {
+
 		const limitMax = limit ?? await Services.user.getLimitMax();
-		const users = await Services.user.getList(selectFields, limitMax);
-		//TODO fix type
-		const searchCitySelectOptions = Services.city.getList(users);
+
+		const users = await Services.user.getList(selectFields, limitMax,skip);
 
 		const tableHeaders = selectFields.map(field => {
 			const parts = field.split('.');
@@ -25,22 +27,9 @@ const FeaturesUsersTable = <
 			})};
 		});
 
-		return {searchCitySelectOptions, tableHeaders, tableListItems};
-
-		//getCitiesForSelectOptions
-		/*
-		tableHeaders: ['Name', 'City', 'Birthday'],
-						tableListItems: [{
-							values: ['Alotta Fudge', 'New York', '1.3.1995']
-						},
-						{
-							values: ['Stan Still', 'Dallas', '31.10.1952']
-						}]
-		 */
-
-		//return Utilities.array.getSelectedFields(users, selectFields);
+		return {tableHeaders, tableListItems};
 	};
 };
 
 
-export default FeaturesUsersTable;
+export default FeaturesUsersGetTable;

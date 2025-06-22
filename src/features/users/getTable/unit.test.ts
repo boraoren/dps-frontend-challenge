@@ -5,7 +5,6 @@ import UserDomain from '../../../services/User/index.domain.ts';
 
 jest.mock('../../../services');
 const mockUserGetList = Services.user.getList as jest.Mock;
-const mockCityGetList = Services.city.getList as jest.Mock;
 
 describe('unit.features.users.table', () => {
 	beforeEach(() => {
@@ -16,26 +15,23 @@ describe('unit.features.users.table', () => {
 
 	given('test users and selected fields', () => {
 		const selectedFields = ['firstName', 'email', 'address.city'] as const;
-		//TODO fix type
 		const testUsers: UserDomain[] = [
 			{
+				//TODO fix type
 				firstName: 'Emily', email: 'emily.johnson@x.dummyjson.com', city: 'Phoenix'
 			}
 		];
 		mockUserGetList.mockResolvedValue(testUsers);
-		mockCityGetList.mockReturnValue(['Phoenix']);
 
 		when('fetcher is called with selected fields', () => {
 			//TODO fix type
-			const usersTable = Features.users.table(selectedFields, 1);
+			const usersTable = Features.users.getTable(selectedFields, 1,0);
 
 			then('it returns only selected fields from user list', async () => {
 				const table = await usersTable();
-				expect(mockUserGetList).toHaveBeenCalledWith(selectedFields, 1);
-				expect(mockCityGetList).toHaveBeenCalledWith(testUsers);
+				expect(mockUserGetList).toHaveBeenCalledWith(selectedFields, 1,0);
 
 				const expectedTable = {
-					searchCitySelectOptions: ['Phoenix'],
 					tableHeaders: ['firstName', 'email', 'city'],
 					tableListItems: [
 						{
@@ -49,4 +45,5 @@ describe('unit.features.users.table', () => {
 		});
 	});
 });
+
 

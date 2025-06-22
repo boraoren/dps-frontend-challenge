@@ -27,13 +27,15 @@ const Api = {
 	getList: async <K extends keyof ApiEntityMap, T>(
 		pathName: K,
 		selectFields: readonly SelectableField<T>[],
-		limitMax: number | undefined = 1
+		limitMax: number | undefined = 1,
+		skip: number | undefined = 0,
 	): Promise<ApiEntityMap[K]> => {
 		try {
 			const url = new URL(`https://dummyjson.com/${pathName}`);
 			const topLevelFields = [...new Set(selectFields.map(f => f.toString().split('.')[0]))];
 			url.searchParams.set('select', topLevelFields.join(','));
 			url.searchParams.set('limit', limitMax?.toString());
+			url.searchParams.set('skip', skip?.toString());
 
 			const res = await fetch(url.toString());
 			if (!res.ok) {

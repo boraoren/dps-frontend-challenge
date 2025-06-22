@@ -1,13 +1,13 @@
 import SelectOption from './index.option.ts';
 import './index.css';
 
-interface SearchSelectProps {
+interface SelectItemProps {
 	selectOptions: SelectOption[];
 	placeHolder: string;
 	onChange: (selected: string) => void;
 }
 
-const SearchSelect = (props: SearchSelectProps) => {
+const SelectItem = (props: SelectItemProps) => {
 
 	const { selectOptions, placeHolder, onChange } = props;
 
@@ -16,7 +16,7 @@ const SearchSelect = (props: SearchSelectProps) => {
 	};
 
 	return (
-		<select id="searchSelect" onChange={handleOnChange}>
+		<select id="selectItem" onChange={handleOnChange}>
 			<option value={placeHolder} disabled selected>{placeHolder}</option>
 			{selectOptions.map((option) => {
 				const { value, text, selected, disabled } = option;
@@ -26,4 +26,4 @@ const SearchSelect = (props: SearchSelectProps) => {
 	);
 };
 
-export default SearchSelect;
+export default SelectItem;
