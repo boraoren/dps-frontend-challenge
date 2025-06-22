@@ -17,7 +17,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 
-const usersTable = await Features.users.table();
 
 export const Default: Story = {
 	args: {
@@ -43,5 +42,21 @@ export const Selected: Story = {
 		}]
 	}
 };
+
+//TODO fix ts
+const selectedFields = ['firstName','lastName','birthDate'];
+
+const usersTable = Features
+	.users
+	.table(selectedFields,208);
+const table = await usersTable();
+
+export const Live: Story = {
+	args: {
+		tableHeaders: table.tableHeaders,
+		tableListItems: table.tableListItems
+	}
+};
+
 
 

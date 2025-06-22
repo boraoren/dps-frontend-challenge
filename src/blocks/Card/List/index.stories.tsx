@@ -75,4 +75,46 @@ export const Default: Story = {
 
 
 
+export const Integration: Story = {
+	render: (args) => {
+		return (
+			<CardList filterProps={{
+				name: {...args.filterProps.name, onChange: action('name changed')},
+				checkboxHighlightOldestPerCity: {...args.filterProps.checkboxHighlightOldestPerCity,onChange: action('isChecked')},
+				searchCity: {...args.filterProps.searchCity, onChange: action('city changed')}
+			}} tableProps={args.tableProps}/>
+		);
+	},
+	args: {
+		filterProps: {
+			name: {
+				title: 'Name',
+				titleBold: true
+			},
+			searchCity: {
+				title: 'City',
+				placeHolder: 'Select City',
+				selectOptions: await getCitiesForSelectOptions(),
+				titleBold: true
+			},
+			checkboxHighlightOldestPerCity: {
+				labelText:'Highlight oldest per city',
+			}
+		},
+		tableProps: {
+			tableHeaders: ['Name', 'City', 'Birthday'],
+			tableListItems: [{
+				values: ['Alotta Fudge', 'New York', '1.3.1995']
+			},
+			{
+				values: ['Stan Still', 'Dallas', '31.10.1952']
+			}]
+		}
+	}
+
+};
+
+
+
+
 

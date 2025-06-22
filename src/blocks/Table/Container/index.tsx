@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import './index.css';
 
 interface TableContainerProps {
 	children: ReactNode;
@@ -6,7 +7,7 @@ interface TableContainerProps {
 
 const TableContainer = (props: TableContainerProps) => {
 	const { children } = props;
-	return (<div>{children}</div>);
+	return (<div className='table'>{children}</div>);
 };
 
 export default TableContainer;

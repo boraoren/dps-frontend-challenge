@@ -15,7 +15,6 @@ export interface TableProps {
 const Table = (props: TableProps) => {
 
 	const { tableHeaders, tableListItems } = props;
-
 	return (
 		<TableContainer>
 			<div style={{marginBottom: -2}}>

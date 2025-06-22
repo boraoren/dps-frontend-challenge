@@ -5,7 +5,7 @@ import Table from '../../Table';
 import type { FilterProps } from '../../Filter';
 import type { TableProps } from '../../Table';
 
-interface CardListProps {
+export interface CardListProps {
 	filterProps: FilterProps;
 	tableProps: TableProps;
 }
