@@ -45,10 +45,11 @@ export const Selected: Story = {
 
 //TODO fix ts
 const selectedFields = ['firstName','lastName','birthDate', 'address.city','gender'];
+const limitMax = 208;
 
 const usersTable = Features
 	.users
-	.table(selectedFields,208);
+	.table(selectedFields,limitMax);
 const table = await usersTable();
 
 export const Live: Story = {

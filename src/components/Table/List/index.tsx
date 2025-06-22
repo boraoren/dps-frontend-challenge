@@ -6,17 +6,17 @@ interface Item {
 	highlighted?: boolean;
 }
 
-export interface TableListProps{
+export interface TableListProps {
 	items: Item[];
 }
 
 const TableList = (props: TableListProps) => {
 
-	const {items} = props;
-	return(
-		<div className='tableList'>
-			{items.map((item)=>{
-				return <TableListItem item={item}/>;
+	const { items } = props;
+	return (
+		<div className="tableList">
+			{items.map((item) => {
+				return <TableListItem item={item} />;
 			})}
 		</div>
 	);
