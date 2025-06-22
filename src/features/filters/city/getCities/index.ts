@@ -8,9 +8,9 @@ interface Response{
 }
 
 const FeaturesCityGetCities = async () => {
-	const selectFields = ['address.city'] as const;
+	const selectedFields = ['address.city'] as const;
 	const limitMax = await Services.user.getLimitMax();
-	const users = await Services.user.getList(selectFields, limitMax);
+	const users = await Services.user.getList(selectedFields, limitMax);
 	//TODO fix type
 	const cities = Services.city.getList(users);
 	const citiesSorted = Services.city.sortList(cities);

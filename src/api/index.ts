@@ -26,13 +26,13 @@ type SelectableField<T> =
 const Api = {
 	getList: async <K extends keyof ApiEntityMap, T>(
 		pathName: K,
-		selectFields: readonly SelectableField<T>[],
+		selectedFields: readonly SelectableField<T>[],
 		limitMax: number | undefined = 1,
 		skip: number | undefined = 0,
 	): Promise<ApiEntityMap[K]> => {
 		try {
 			const url = new URL(`https://dummyjson.com/${pathName}`);
-			const topLevelFields = [...new Set(selectFields.map(f => f.toString().split('.')[0]))];
+			const topLevelFields = [...new Set(selectedFields.map(f => f.toString().split('.')[0]))];
 			url.searchParams.set('select', topLevelFields.join(','));
 			url.searchParams.set('limit', limitMax?.toString());
 			url.searchParams.set('skip', skip?.toString());
@@ -43,7 +43,7 @@ const Api = {
 			}
 			const json = await res.json() as ApiEntityMap[K];
 			json[pathName] = (json[pathName] as unknown[]).map((item) => {
-				return selectFields.reduce((acc, field) => {
+				return selectedFields.reduce((acc, field) => {
 					const [top, nested] = field.toString().split('.');
 					const topValue = (item as Record<string, unknown>)[top];
 

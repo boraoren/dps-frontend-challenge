@@ -19,8 +19,8 @@ type Story = StoryObj<typeof meta>;
 
 const getCitiesForSelectOptions = async (): Promise<SelectOption[]> => {
 	const limitMax = await Services.user.getLimitMax();
-	const selectFields = ['address.city'];
-	const users = await Services.user.getList(selectFields,limitMax);
+	const selectedFields = ['address.city'];
+	const users = await Services.user.getList(selectedFields,limitMax);
 	const cities = Services.city.getList(users);
 	const citiesSorted = Services.city.sortList(cities);
 	return citiesSorted.map((city) => {

@@ -5,7 +5,7 @@ import UserDomain from '../../../services/User/index.domain.ts';
 const FeaturesUsersGetTable = <
 	const K extends readonly (keyof UserDomain)[]
 >(
-		selectFields: K,
+		selectedFields: K,
 		limit?: number,
 		skip?:number,
 	): ( () => Promise<Pick<UserDomain, K[number]>[]>) => {
@@ -14,9 +14,9 @@ const FeaturesUsersGetTable = <
 
 		const limitMax = limit ?? await Services.user.getLimitMax();
 
-		const users = await Services.user.getList(selectFields, limitMax,skip);
+		const users = await Services.user.getList(selectedFields, limitMax,skip);
 
-		const tableHeaders = selectFields.map(field => {
+		const tableHeaders = selectedFields.map(field => {
 			const parts = field.split('.');
 			return parts[parts.length - 1];
 		});

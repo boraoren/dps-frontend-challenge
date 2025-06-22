@@ -29,25 +29,22 @@ export const Default: Story = {
 		);
 	},
 	args: {
+		//TODO fix type
 		filterProps: {
-			//TODO fix type
 			name: {
 				title: 'Name',
 				titleBold: true
 			},
-			//TODO fix type
 			selectCity: {
 				title: 'City',
 				placeHolder: 'Select City',
 				selectOptions: await Features.filters.city.getCities(),
 				titleBold: true
 			},
-			//TODO fix type
 			checkboxHighlightOldestPerCity: {
 				labelText:'Highlight oldest per city',
 			}
 		},
-		//TODO fix type
 		tableProps: {
 			tableHeaders: ['Name', 'City', 'Birthday'],
 			tableListItems: [{
@@ -73,6 +70,7 @@ export const Integration: Story = {
 		);
 	},
 	args: {
+		//TODO fix type
 		filterProps: {
 			name: {
 				title: 'Name',
