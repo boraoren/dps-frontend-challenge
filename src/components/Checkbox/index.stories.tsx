@@ -26,6 +26,15 @@ export const Checked: Story = {
 	}
 };
 
+export const WithTitle: Story = {
+	args: {
+		title: 'Checkbox',
+		checked: true
+	}
+};
+
+
+
 
 
 

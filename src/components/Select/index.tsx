@@ -8,17 +8,17 @@ export interface SelectProps {
 	titleBold?: boolean;
 	onChange: (selected: string) => void;
 	placeHolder: string;
-	selectOptions: SelectOption[];
+	options: SelectOption[];
 }
 
 const Select = (props: SelectProps) => {
 
-	const { title, titleBold, selectOptions,placeHolder, onChange } = props;
+	const { title, titleBold, onChange, placeHolder, options } = props;
 
 	return (
 		<SelectContainer>
-			<Label text={title} bold={titleBold}/>
-			<SelectItem selectOptions={selectOptions} onChange={onChange} placeHolder={placeHolder} />
+			<Label text={title} bold={titleBold} />
+			<SelectItem selectOptions={options} onChange={onChange} placeHolder={placeHolder} />
 		</SelectContainer>
 	);
 };

@@ -1,19 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Filter from './index.tsx';
 import { action } from '@storybook/addon-actions';
-import Features from '../../features';
-import { fn } from '@storybook/test';
+import FilterContainer from './index.tsx';
 
 const meta = {
-	title: 'DPS/Blocks/Filter',
-	component: Filter,
+	title: 'DPS/Blocks/Filter/Container',
+	component: FilterContainer,
 	parameters: {
 		layout: 'centered'
 	},
 	tags: ['autodocs'],
 	argTypes: {},
 	args: {}
-} satisfies Meta<typeof Filter>;
+} satisfies Meta<typeof FilterContainer>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -21,10 +19,12 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: (args) => {
 		return (
-			<Filter name={{ ...args.name, onChange: action('name changed') }} checkbox={{
+			<FilterContainer name={{ ...args.name, onChange: action('name changed') }} checkbox={{
 				...args.checkbox,
 				onChange: action('checked')
-			}} select={{ ...args.select, onChange: action('select changed') }} />
+			}} select={{
+				...args.select, onChange: action('city changed')
+			}} />
 		);
 	},
 	args: {
@@ -36,11 +36,10 @@ export const Default: Story = {
 			title: 'City',
 			titleBold: true,
 			placeHolder: 'Select City',
-			options: await Features.filters.city.getCities()
 		},
 		checkbox: {
 			title: 'Highlight oldest per city'
-		}
+		},
 	}
 };
 

@@ -19,14 +19,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
 	args: {
-		labelText: 'Highlight oldest per city'
+		title: 'Highlight oldest per city'
 	}
 };
 
 
 export const Checked: Story = {
 	args: {
-		labelText: 'Highlight oldest per city',
+		title: 'Highlight oldest per city',
 		checked: true
 	}
 };

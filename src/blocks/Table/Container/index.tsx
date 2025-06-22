@@ -1,7 +1,7 @@
 import Table from '../index.tsx';
 import { useTableData } from './index.hooks.ts';
 
-interface TableContainerProps {
+export interface TableContainerProps {
 	selectedFields: string[];
 	initialLimit?: number;
 }

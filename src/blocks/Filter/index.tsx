@@ -1,25 +1,25 @@
-import FilterContainer from './Container';
 import Input, { InputProps } from '../../components/Input';
 import Select, { SelectProps } from '../../components/Select';
-import CheckboxHighlight, { CheckboxHighlightProps } from '../../components/CheckboxHighlight';
+import './index.css';
+import Checkbox, { CheckboxProps } from '../../components/Checkbox';
 
 export interface FilterProps {
 	name: InputProps;
-	selectCity: SelectProps;
-	checkboxHighlightOldestPerCity: CheckboxHighlightProps;
+	select: SelectProps;
+	checkbox: CheckboxProps;
 }
 
 const Filter = (props: FilterProps) => {
 
-	const { name, selectCity, checkboxHighlightOldestPerCity } = props;
+	const { name, select, checkbox } = props;
 
 	return (
-		<FilterContainer>
+		<div className="filter">
 			<Input title={name.title} titleBold={name.titleBold} onChange={name.onChange} />
-			<Select selectOptions={selectCity.selectOptions} onChange={selectCity.onChange}
-					placeHolder={selectCity.placeHolder} title={selectCity.title} titleBold={selectCity.titleBold}/>
-			<CheckboxHighlight labelText={checkboxHighlightOldestPerCity.labelText} onChange={checkboxHighlightOldestPerCity.onChange}/>
-		</FilterContainer>
+			<Select title={select.title} titleBold={select.titleBold} placeHolder={select.placeHolder}
+				options={select.options} onChange={select.onChange} />
+			<Checkbox title={checkbox.title} onChange={checkbox.onChange} />
+		</div>
 	);
 };
 

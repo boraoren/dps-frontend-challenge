@@ -1,6 +1,6 @@
 import Services from '../../../../services';
 
-interface Response{
+interface City{
 	value: string;
 	text: string;
 	selected?: boolean;
@@ -19,7 +19,7 @@ const FeaturesCityGetCities = async () => {
 		return {
 			text: city,
 			value: city
-		} as Response;
+		} as City;
 	});
 };
 
