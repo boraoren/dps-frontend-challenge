@@ -19,7 +19,10 @@ type Story = StoryObj<typeof meta>;
 const limit = 208;
 const selectedFields = ['id', 'firstName', 'email'];
 //TODO fix type
-const usersTable = Features.users.getTable(selectedFields, limit);
+const usersTable = Features.users.getTable({
+	selectedFields,
+	limit
+});
 const table = await usersTable();
 
 export const Default: Story = {

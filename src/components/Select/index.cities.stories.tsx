@@ -20,8 +20,8 @@ type Story = StoryObj<typeof meta>;
 const getCitiesForSelectOptions = async (): Promise<SelectOption[]> => {
 	const limitMax = await Services.user.getLimitMax();
 	const selectedFields = ['address.city'];
-	const users = await Services.user.getList(selectedFields, limitMax);
-	const cities = Services.city.getList(users);
+	const apiResponse = await Services.user.getList({selectedFields, limitMax});
+	const cities = Services.city.getList(apiResponse.users);
 	const citiesSorted = Services.city.sortList(cities);
 	return citiesSorted.map((city) => {
 		return {
@@ -37,7 +37,7 @@ export const Default: Story = {
 		placeHolder: 'Select City',
 		titleBold: true,
 		onChange: fn(),
-		options: await getCitiesForSelectOptions()
+		options: await getCitiesForSelectOptions(),
 	}
 };
 

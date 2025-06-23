@@ -55,21 +55,30 @@ export const Default: Story = {
 
 
 export const Integration: Story = {
+	render: (args) => {
+		return (
+			<CardUserList {...args} filterProps={{
+				name: {...args.filterProps.name, onChange: action('name changed')},
+				checkbox: {...args.filterProps.checkbox,onChange: action('isChecked')},
+				select: {...args.filterProps.select, onChange: action('city changed')}
+			}} />
+		);
+	},
 	args: {
 		table: {
-			selectedFields: ['id','firstName','email','birthDate'],
+			selectedFields: ['id','firstName','birthDate', 'address.city'],
 			initialLimit: 10,
 		},
 		filterProps: {
 			name: {
 				title: 'Name',
-				titleBold: true
+				titleBold: true,
 			},
 			select: {
 				title: 'City',
 				placeHolder: 'Select City',
 				options: await Features.filters.city.getCities(),
-				titleBold: true
+				titleBold: true,
 			},
 			checkbox: {
 				title:'Highlight oldest per city',

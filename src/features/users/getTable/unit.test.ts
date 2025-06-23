@@ -1,10 +1,11 @@
 import Services from '../../../services';
 import Features from '../../index.ts';
 import Utilities from '../../../utilities';
-import UserDomain from '../../../services/User/index.domain.ts';
 
 jest.mock('../../../services');
 const mockUserGetList = Services.user.getList as jest.Mock;
+
+const logger = Utilities.logger.getTestLogger();
 
 describe('unit.features.users.table', () => {
 	beforeEach(() => {
@@ -14,28 +15,58 @@ describe('unit.features.users.table', () => {
 	const { given, when, then } = Utilities.test;
 
 	given('test users and selected fields', () => {
-		const selectedFields = ['firstName', 'email', 'address.city'] as const;
-		const testUsers: UserDomain[] = [
-			{
-				//TODO fix type
-				firstName: 'Emily', email: 'emily.johnson@x.dummyjson.com', city: 'Phoenix'
-			}
-		];
-		mockUserGetList.mockResolvedValue(testUsers);
+
+		const givenSelectedFields = ['firstName', 'email', 'address.city'] as const;
+		const givenLimit = 1;
+
+		logger.info('given',{givenSelectedFields, givenLimit});
+
+		const mockUserGetListResolvedValue = {
+			limit: 1,
+			skip: 0,
+			total: 208,
+			users: [
+				{
+					firstName: "Emily",
+					email: "emily.johnson@x.dummyjson.com",
+					city: "Phoenix"
+				}
+			]
+		};
+
+		mockUserGetList.mockResolvedValue(mockUserGetListResolvedValue);
 
 		when('fetcher is called with selected fields', () => {
 			//TODO fix type
-			const usersTable = Features.users.getTable(selectedFields, 1,0);
+			const usersTable = Features.users.getTable({
+				selectedFields: givenSelectedFields,
+				limit: givenLimit,
+			});
 
 			then('it returns only selected fields from user list', async () => {
 				const table = await usersTable();
-				expect(mockUserGetList).toHaveBeenCalledWith(selectedFields, 1,0);
+				logger.info('then',{table});
+
+				expect(mockUserGetList).toHaveBeenCalledWith({selectedFields: givenSelectedFields, limitMax:givenLimit});
 
 				const expectedTable = {
-					tableHeaders: ['firstName', 'email', 'city'],
+					pagination: {
+						limit: 1,
+						skip: 0,
+						total: 208
+					},
+					tableHeaders: [
+						"firstName",
+						"email",
+						"city"
+					],
 					tableListItems: [
 						{
-							values: ['Emily', 'emily.johnson@x.dummyjson.com', 'Phoenix']
+							values: [
+								"Emily",
+								"emily.johnson@x.dummyjson.com",
+								"Phoenix"
+							]
 						}
 					]
 				};

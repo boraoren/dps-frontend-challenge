@@ -12,4 +12,5 @@ export default defineConfig({
 		strictPort: true,
 		port: 3000, // replace this port with any number you want
 	},
+
 });

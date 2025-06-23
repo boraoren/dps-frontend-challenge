@@ -13,11 +13,23 @@ describe('integration.services.user.getList', () => {
 
 		when('fetcher is called with selected fields', () => {
 
-			then('it returns only selected fields from user list', async () => {
-				const expectedUsers =  [ { id: 1, firstName: 'Emily', lastName: 'Johnson', city: 'Phoenix' } ];
+			then('it returns only selected fields from user list and pagination', async () => {
+				const expectedApiResponse =  {
+					limit: 1,
+					skip: 0,
+					total: 208,
+					users: [
+						{
+							city: "Phoenix",
+							firstName: "Emily",
+							id: 1,
+							lastName: "Johnson"
+						}
+					]
+				};
 				const limitMax = 1;
-				const users = await Services.user.getList(selectedFields, limitMax);
-				expect(users).toEqual(expectedUsers);
+				const apiResponse = await Services.user.getList({selectedFields, limitMax});
+				expect(apiResponse).toEqual(expectedApiResponse);
 			});
 		});
 	});

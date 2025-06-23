@@ -1,0 +1,33 @@
+import pino from 'pino';
+import pinoCaller from 'pino-caller';
+import pretty from 'pino-pretty';
+
+
+const isBrowser = typeof window !== 'undefined';
+
+
+
+const stream = pretty({
+	colorize: true,
+	translateTime: 'SYS:standard',
+	messageFormat: '[{levelLabel}] [{module}] {msg}'
+});
+
+const baseLogger = pino((isBrowser) ? { level: 'debug' } : { level: 'silent' }, stream);
+
+const UtilitiesLogger = {
+	get(moduleName: string) {
+		return pinoCaller(baseLogger).child({ module: moduleName });
+	},
+	getApiLogger: () => {
+		return pinoCaller(baseLogger).child({ module: 'Api' });
+	},
+	getFeaturesLogger: () => {
+		return pinoCaller(baseLogger).child({module: 'Features'});
+	},
+	getServicesLogger: () => {
+		return pinoCaller(baseLogger).child({module: 'Services'});
+	}
+};
+
+export default UtilitiesLogger;

@@ -1,5 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import Features from '../../../features';
+import Utilities from '../../../utilities';
+
+const logger = Utilities.logger.getBlocks();
+const LOGGER_PATH = '/table/container/hook';
 
 export interface TableListItem {
 	values: string[];
@@ -9,50 +13,92 @@ export interface TableListItem {
 export interface TableData {
 	tableHeaders: string[];
 	tableListItems: TableListItem[];
+	pagination: Pagination;
 }
 
-interface UseTableDataProps {
+interface UserTableDataProps {
 	selectedFields: string[];
 	initialLimit?: number;
+	filter?: Filter;
+	pagination: Pagination;
 }
 
-export function useTableData({ selectedFields, initialLimit = 10 }: UseTableDataProps) {
-	const [tableData, setTableData] = useState<TableData>({
+
+interface Filter {
+	key: string;
+	value: string;
+}
+
+interface Pagination {
+	limit: number;
+	skip: number;
+	total: number;
+}
+
+export function useTableData({ selectedFields, initialLimit = 10, filter, pagination }: UserTableDataProps) {
+
+	const [userGetTableState, setUserGetTableState] = useState<TableData>({
 		tableHeaders: [],
 		tableListItems: [],
+		pagination
 	});
 
-	const [pagination, setPagination] = useState({ limitMax: initialLimit, skip: 0 });
+	logger.debug(LOGGER_PATH, {
+		selectedFields,
+		initialLimit
+	});
+
 	const [isLoading, setIsLoading] = useState(false);
 
-	const fetchData = useCallback(async () => {
+
+	const fetchData = useCallback(async ({ skip = 0, reset = false }: { skip?: number; reset?: boolean }) => {
 		setIsLoading(true);
-		const { limitMax, skip } = pagination;
-		//TODO fix type
-		const usersTable = Features.users.getTable(selectedFields, limitMax, skip);
-		const table = await usersTable();
 
-		//TODO fix type
-		setTableData((prev) => ({
-			tableHeaders: table.tableHeaders,
-			tableListItems: prev.tableListItems.concat(table.tableListItems),
-		}));
+		const { limit } = userGetTableState.pagination;
 
-		setPagination((prev) => ({
-			...prev,
-			skip: prev.skip + prev.limitMax,
+		const usersGetTable = Features.users.getTable({
+			selectedFields,
+			filter,
+			limit,
+			skip
+		});
+
+		const { tableHeaders, tableListItems, pagination } = await usersGetTable();
+
+		logger.debug(LOGGER_PATH, tableListItems);
+
+		setUserGetTableState(prevState => ({
+			...prevState,
+			tableHeaders,
+			tableListItems: reset ? tableListItems : prevState.tableListItems.concat(tableListItems),
+			pagination: {
+				...pagination,
+				skip,
+				limit: reset ? 10 : prevState.pagination.limit
+			}
 		}));
 
 		setIsLoading(false);
-	}, [pagination, selectedFields]);
+	}, [selectedFields, filter, userGetTableState.pagination.limit]);
+
+
 
 	useEffect(() => {
-		fetchData();
-	}, []);
+		fetchData({ skip: 0, reset: true });
+	}, [filter?.value]);
+
+	const onScrollEnd = useCallback(() => {
+		if (isLoading) return;
+
+		const nextSkip = userGetTableState.pagination.skip + userGetTableState.pagination.limit;
+		fetchData({ skip: nextSkip, reset: false });
+	}, [isLoading, userGetTableState.pagination, fetchData]);
+
 
 	return {
-		tableData,
+		tableData: userGetTableState,
 		isLoading,
-		fetchData,
+		onScrollEnd,
+		pagination
 	};
 }

@@ -3,11 +3,17 @@ import type { FilterProps } from '../../Filter';
 import TableContainer from '../../Table/Container';
 import FilterContainer from '../../Filter/Container';
 
+interface Filter {
+	key: string;
+	value: string;
+}
+
 export interface CardUserListProps {
 	filterProps: FilterProps;
 	table: {
 		selectedFields: string[],
 		initialLimit?: number,
+		filter?: Filter,
 	};
 }
 
@@ -18,7 +24,8 @@ const CardUserList = (props: CardUserListProps) => {
 	return (
 		<Card>
 			<FilterContainer {...filterProps} />
-			<TableContainer selectedFields={table.selectedFields} initialLimit={table.initialLimit} />
+			<TableContainer selectedFields={table.selectedFields} initialLimit={table.initialLimit}
+				filter={table.filter} />
 		</Card>
 	);
 };

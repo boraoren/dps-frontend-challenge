@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CardUserList from './index.tsx';
-import { action } from '@storybook/addon-actions';
-import Features from '../../../../features';
 import CardUserListContainer from './index.tsx';
+import { action } from '@storybook/addon-actions';
+import { useState } from 'react';
 
 
 const meta = {
@@ -23,10 +23,10 @@ export const Default: Story = {
 	render: (args) => {
 		return (
 			<CardUserListContainer filterProps={{
-				name: {...args.filterProps.name, onChange: action('name changed')},
-				checkbox: {...args.filterProps.checkbox,onChange: action('isChecked')},
-				select: {...args.filterProps.select, onChange: action('city changed')}
-			}} table={args.table}/>
+				name: { ...args.filterProps.name, onChange: action('name changed') },
+				checkbox: { ...args.filterProps.checkbox, onChange: action('isChecked') },
+				select: { ...args.filterProps.select, onChange: action('city changed') }
+			}} table={args.table} />
 		);
 	},
 	args: {
@@ -39,26 +39,51 @@ export const Default: Story = {
 			select: {
 				title: 'City',
 				placeHolder: 'Select City',
-				titleBold: true,
+				titleBold: true
 			},
 			checkbox: {
-				title:'Highlight oldest per city',
+				title: 'Highlight oldest per city'
 			}
 		},
 		table: {
-			selectedFields: ['id','firstName','email','birthDate'],
-			initialLimit: 10,
-		},
+			selectedFields: ['id', 'firstName', 'birthDate', 'address.city'],
+			initialLimit: 10
+		}
 	}
 
 };
 
+interface Filter {
+	key: string;
+	value: string;
+}
 
 export const Integration: Story = {
+	render: (args) => {
+
+		const [filter, setFilter] = useState<Filter | undefined>();
+
+		const handleSelectOnChange = (selected: string) => {
+			setFilter({key: 'address.city', value: selected});
+			action('city changed')(selected);
+		};
+
+		return (
+			<>
+				<CardUserListContainer filterProps={{
+					name: { ...args.filterProps.name, onChange: action('name changed') },
+					checkbox: { ...args.filterProps.checkbox, onChange: action('highlight oldest checked') },
+					select: { ...args.filterProps.select, onChange: handleSelectOnChange }
+				}} table={{
+					...args.table, filter
+				}} />
+			</>
+		);
+	},
 	args: {
 		table: {
-			selectedFields: ['id','firstName','email','birthDate'],
-			initialLimit: 10,
+			selectedFields: ['id', 'firstName', 'birthDate', 'address.city'],
+			initialLimit: 10
 		},
 		filterProps: {
 			name: {
@@ -71,9 +96,9 @@ export const Integration: Story = {
 				titleBold: true
 			},
 			checkbox: {
-				title:'Highlight oldest per city',
+				title: 'Highlight oldest per city'
 			}
-		},
+		}
 	}
 
 };

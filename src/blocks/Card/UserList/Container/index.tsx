@@ -2,7 +2,6 @@ import CardUserList, { CardUserListProps } from '../index.tsx';
 import { useEffect } from 'react';
 import Features from '../../../../features';
 
-
 const CardUserListContainer = (props: CardUserListProps) => {
 	const { filterProps, table } = props;
 

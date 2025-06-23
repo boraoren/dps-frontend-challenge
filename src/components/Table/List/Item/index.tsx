@@ -16,7 +16,7 @@ const TableListItem = (props: TableListItemProps) => {
 	const { item } = props;
 
 	const itemSelectedStyle: CSSProperties = {
-		background: item.highlighted ? '#AFD7FB' : 'white',
+		background: item?.highlighted ? '#AFD7FB' : 'white',
 		borderRadius: 10,
 		padding: 5
 	};
