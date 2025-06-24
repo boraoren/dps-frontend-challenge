@@ -35,7 +35,7 @@ const TableContainer = (props: TableContainerProps) => {
 
 	return (
 		<div style={{ display: 'flex', flexDirection: 'column' }}>
-			{JSON.stringify(tableData.pagination)}
+			{/*JSON.stringify(tableData.pagination)*/}
 			<Table
 				tableHeaders={tableData.tableHeaders}
 				tableListItems={tableData.tableListItems}

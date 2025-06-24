@@ -1,30 +1,19 @@
 import dpsLogo from './assets/DPS.svg';
 import './App.css';
-import FilterContainer from './blocks/Filter/Container';
-import { InputProps } from './components/Input';
-import { SelectProps } from './components/Select';
-import { CheckboxProps } from './components/Checkbox';
+import CardUserListContainer from './blocks/Card/UserList/Container';
+import { useState } from 'react';
+
+
+interface Filter {
+	key: string;
+	value: string;
+}
+
 
 function App() {
-
-
-	const filter = {
-		name: {
-			title: 'Name',
-			titleBold: true,
-			onChange: () => {},
-		} as InputProps,
-		select: {
-			title: 'City',
-			titleBold: true,
-			placeHolder: 'Select City',
-			onChange: () => {},
-			options: []
-		} as SelectProps,
-		checkbox: {
-			title: 'Highlight oldest per city',
-			onChange: () => {}
-		} as CheckboxProps,
+	const [filter, setFilter] = useState<Filter | undefined>();
+	const handleSelectOnChange = (selected: string) => {
+		setFilter({ key: 'address.city', value: selected });
 	};
 
 	return (
@@ -36,7 +25,25 @@ function App() {
 			</div>
 			<div className="home-card">
 				<p>Your solution goes here 😊</p>
-				<FilterContainer name={filter.name} select={filter.select} checkbox={filter.checkbox}/>
+				<CardUserListContainer filterProps={{
+					name: {
+						title: 'Name',
+						titleBold: true
+					},
+					select: {
+						title: 'City',
+						placeHolder: 'Select City',
+						titleBold: true,
+						onChange: handleSelectOnChange
+					},
+					checkbox: {
+						title: 'Highlight oldest per city'
+					}
+				}} table={{
+					selectedFields: ['id', 'firstName', 'birthDate', 'address.city'],
+					initialLimit: 10,
+					filter
+				}} />
 			</div>
 		</>
 	);
