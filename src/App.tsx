@@ -25,7 +25,7 @@ function App() {
 			</div>
 			<div className="home-card">
 				<p>Your solution goes here 😊</p>
-				<CardUserListContainer filterProps={{
+				<CardUserListContainer filter={{
 					name: {
 						title: 'Name',
 						titleBold: true

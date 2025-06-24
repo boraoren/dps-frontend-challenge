@@ -21,16 +21,16 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
 	render: (args) => {
 		return (
-			<CardUserList {...args} filterProps={{
-				name: {...args.filterProps.name, onChange: action('name changed')},
-				checkbox: {...args.filterProps.checkbox,onChange: action('isChecked')},
-				select: {...args.filterProps.select, onChange: action('city changed')}
+			<CardUserList {...args} filter={{
+				name: {...args.filter.name, onChange: action('name changed')},
+				checkbox: {...args.filter.checkbox,onChange: action('isChecked')},
+				select: {...args.filter.select, onChange: action('city changed')}
 			}} />
 		);
 	},
 	args: {
 		//TODO fix type
-		filterProps: {
+		filter: {
 			name: {
 				title: 'Name',
 				titleBold: true
@@ -57,10 +57,10 @@ export const Default: Story = {
 export const Integration: Story = {
 	render: (args) => {
 		return (
-			<CardUserList {...args} filterProps={{
-				name: {...args.filterProps.name, onChange: action('name changed')},
-				checkbox: {...args.filterProps.checkbox,onChange: action('isChecked')},
-				select: {...args.filterProps.select, onChange: action('city changed')}
+			<CardUserList {...args} filter={{
+				name: {...args.filter.name, onChange: action('name changed')},
+				checkbox: {...args.filter.checkbox,onChange: action('isChecked')},
+				select: {...args.filter.select, onChange: action('city changed')}
 			}} />
 		);
 	},
@@ -69,7 +69,7 @@ export const Integration: Story = {
 			selectedFields: ['id','firstName','birthDate', 'address.city'],
 			initialLimit: 10,
 		},
-		filterProps: {
+		filter: {
 			name: {
 				title: 'Name',
 				titleBold: true,

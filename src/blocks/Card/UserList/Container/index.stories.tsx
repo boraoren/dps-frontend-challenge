@@ -2,8 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import CardUserList from './index.tsx';
 import CardUserListContainer from './index.tsx';
 import { action } from '@storybook/addon-actions';
-import { useState } from 'react';
-
+import { useTable } from '../../../Table/index.hook.tsx';
 
 const meta = {
 	title: 'DPS/Blocks/Card/UserList/Container',
@@ -19,39 +18,23 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-	render: (args) => {
-		return (
-			<CardUserListContainer filterProps={{
-				name: { ...args.filterProps.name, onChange: action('name changed') },
-				checkbox: { ...args.filterProps.checkbox, onChange: action('isChecked') },
-				select: { ...args.filterProps.select, onChange: action('city changed') }
-			}} table={args.table} />
-		);
-	},
-	args: {
-		//TODO fix type
-		filterProps: {
-			name: {
-				title: 'Name',
-				titleBold: true
-			},
-			select: {
-				title: 'City',
-				placeHolder: 'Select City',
-				titleBold: true
-			},
-			checkbox: {
-				title: 'Highlight oldest per city'
-			}
-		},
-		table: {
-			selectedFields: ['id', 'firstName', 'birthDate', 'address.city'],
-			initialLimit: 10
-		}
-	}
+interface Pagination {
+	limit: number;
+	skip: number;
+	total: number;
+}
 
-};
+export interface TableListItem {
+	values: string[];
+	highlighted?: boolean;
+}
+
+
+interface Table {
+	tableHeaders: string[];
+	tableListItems: TableListItem[];
+	pagination: Pagination;
+}
 
 interface Filter {
 	key: string;
@@ -60,23 +43,15 @@ interface Filter {
 
 export const Integration: Story = {
 	render: (args) => {
-
-		const [filter, setFilter] = useState<Filter | undefined>();
-
-		const handleSelectOnChange = (selected: string) => {
-			setFilter({key: 'address.city', value: selected});
-			action('city changed')(selected);
-		};
-
+		const { table, handleSelectOnChange, handleTableOnScrollEnd, isLoading } = useTable();
 		return (
 			<>
-				<CardUserListContainer filterProps={{
-					name: { ...args.filterProps.name, onChange: action('name changed') },
-					checkbox: { ...args.filterProps.checkbox, onChange: action('highlight oldest checked') },
-					select: { ...args.filterProps.select, onChange: handleSelectOnChange }
-				}} table={{
-					...args.table, filter
-				}} />
+				<CardUserListContainer filter={{
+					name: { ...args.filter.name, onChange: action('name changed') },
+					checkbox: { ...args.filter.checkbox, onChange: action('highlight oldest checked') },
+					select: { ...args.filter.select, onChange: handleSelectOnChange }
+				}} table={table} tableOnScrollEnd={handleTableOnScrollEnd} />
+				{isLoading ? <div>LOADING...</div> : <div>.</div>}
 			</>
 		);
 	},
@@ -85,7 +60,7 @@ export const Integration: Story = {
 			selectedFields: ['id', 'firstName', 'birthDate', 'address.city'],
 			initialLimit: 10
 		},
-		filterProps: {
+		filter: {
 			name: {
 				title: 'Name',
 				titleBold: true

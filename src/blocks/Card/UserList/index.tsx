@@ -3,29 +3,43 @@ import type { FilterProps } from '../../Filter';
 import TableContainer from '../../Table/Container';
 import FilterContainer from '../../Filter/Container';
 
+export interface TableListItem {
+	values: string[];
+	highlighted?: boolean;
+}
+
+interface Pagination {
+	limit: number;
+	skip: number;
+	total: number;
+}
+
+interface Table {
+	tableHeaders: string[];
+	tableListItems: TableListItem[];
+	pagination: Pagination;
+}
+
+
 interface Filter {
 	key: string;
 	value: string;
 }
 
 export interface CardUserListProps {
-	filterProps: FilterProps;
-	table: {
-		selectedFields: string[],
-		initialLimit?: number,
-		filter?: Filter,
-	};
+	filter: FilterProps;
+	table: Table;
+	tableOnScrollEnd: () => void;
 }
 
 const CardUserList = (props: CardUserListProps) => {
 
-	const { filterProps, table } = props;
+	const { filter, table, tableOnScrollEnd } = props;
 
 	return (
 		<Card>
-			<FilterContainer {...filterProps} />
-			<TableContainer selectedFields={table.selectedFields} initialLimit={table.initialLimit}
-				filter={table.filter} />
+			<FilterContainer {...filter} />
+			<TableContainer table={table} tableOnScrollEnd={tableOnScrollEnd} />
 		</Card>
 	);
 };

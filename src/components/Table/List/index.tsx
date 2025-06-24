@@ -11,10 +11,11 @@ interface Item {
 export interface TableListProps {
 	items: Item[];
 	onScrollEnd: ()=>void;
+	isLoading?: boolean;
 }
 
 const TableList = (props: TableListProps) => {
-	const { items,onScrollEnd } = props;
+	const { items,onScrollEnd, isLoading } = props;
 
 	const tableListReference = useRef<HTMLDivElement>(null);
 	Hooks.useScrollEnd(tableListReference, {

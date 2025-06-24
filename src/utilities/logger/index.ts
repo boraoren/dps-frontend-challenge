@@ -32,6 +32,12 @@ const UtilitiesLogger = {
 	},
 	getComponentLogger: () => {
 		return consola.withTag('Components');
+	},
+	getStorybookLogger: () => {
+		return consola.withTag('Storybook');
+	},
+	getHooks: (path: string) => {
+		return consola.withTag(`Hooks/${path}`);
 	}
 };
 
