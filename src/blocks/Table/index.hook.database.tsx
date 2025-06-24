@@ -42,14 +42,21 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const handleSelectOnChange = (selected: string) => {
-		_setFilters({
-			city: selected
+		_setFilters((prevState) => {
+			if (!prevState) {
+				return {
+					city: selected
+				};
+			}
+			return {
+				...prevState,city: selected
+			};
 		});
 	};
 
 	const handleCheckboxOnChange = (isChecked: boolean) => {
 		_setFilters((prevState) => {
-			if(!prevState) {
+			if (!prevState) {
 				return {
 					oldestPerCity: isChecked
 				};

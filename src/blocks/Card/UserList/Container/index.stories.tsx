@@ -41,7 +41,7 @@ export const Integration: Story = {
 	render: (args) => {
 
 		const pagination: Pagination = {
-			limit: 208
+			limit: 10
 		};
 		const options: Options = {
 			select: ['id', 'firstName','address.city']
