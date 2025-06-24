@@ -78,6 +78,7 @@ interface UserDomain{
 	userAgent: string;
 	crypto: Crypto;
 	role: string;
+	oldest?:string;
 }
 
 export default UserDomain;

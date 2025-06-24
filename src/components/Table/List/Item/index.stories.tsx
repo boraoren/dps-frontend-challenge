@@ -26,7 +26,7 @@ export const Default: Story = {
 
 export const Highlighted: Story = {
 	args: {
-		item: {...item, highlighted: true}
+		item: {...item, isOldest: true}
 	}
 };
 

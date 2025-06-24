@@ -5,7 +5,7 @@ import { useRef } from 'react';
 
 interface Item {
 	values: string[];
-	highlighted?: boolean;
+	isOldest?: boolean;
 }
 
 export interface TableListProps {
@@ -28,7 +28,7 @@ const TableList = (props: TableListProps) => {
 	return (
 		<div className="tableList" ref={tableListReference}>
 			{items.map((item) => {
-				return <TableListItem item={item} />;
+				return   <TableListItem item={item} isOldest={item.isOldest}/>;
 			})}
 		</div>
 	);

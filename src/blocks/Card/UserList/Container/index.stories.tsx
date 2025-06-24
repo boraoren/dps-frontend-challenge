@@ -3,6 +3,9 @@ import CardUserList from './index.tsx';
 import CardUserListContainer from './index.tsx';
 import { action } from '@storybook/addon-actions';
 import { useTable } from '../../../Table/index.hook.tsx';
+import useTableForDatabase from '../../../Table/index.hook.database.tsx';
+import Features from '../../../../features';
+import { useState } from 'react';
 
 const meta = {
 	title: 'DPS/Blocks/Card/UserList/Container',
@@ -15,40 +18,50 @@ const meta = {
 	args: {}
 } satisfies Meta<typeof CardUserList>;
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+interface Options {
+	select: string[];
+}
+
+interface Filters {
+	name?: string;
+	city?: string;
+	oldestPerCity?: boolean;
+}
 
 interface Pagination {
 	limit: number;
-	skip: number;
-	total: number;
-}
-
-export interface TableListItem {
-	values: string[];
-	highlighted?: boolean;
+	skip?: number;
 }
 
 
-interface Table {
-	tableHeaders: string[];
-	tableListItems: TableListItem[];
-	pagination: Pagination;
-}
-
-interface Filter {
-	key: string;
-	value: string;
-}
+export default meta;
+type Story = StoryObj<typeof meta>;
 
 export const Integration: Story = {
 	render: (args) => {
-		const { table, handleSelectOnChange, handleTableOnScrollEnd, isLoading } = useTable();
+
+		const pagination: Pagination = {
+			limit: 208
+		};
+		const options: Options = {
+			select: ['id', 'firstName','address.city']
+		};
+
+		const { table, handleSelectOnChange, handleTableOnScrollEnd, isLoading, handleCheckboxOnChange } = useTableForDatabase(
+			pagination,
+			options,
+		);
+
+		const handleOnNameChange = (value: string) => {
+			action('name changed')(value);
+		};
+
+
 		return (
 			<>
 				<CardUserListContainer filter={{
-					name: { ...args.filter.name, onChange: action('name changed') },
-					checkbox: { ...args.filter.checkbox, onChange: action('highlight oldest checked') },
+					name: { ...args.filter.name, onChange: handleOnNameChange },
+					checkbox: { ...args.filter.checkbox, onChange: handleCheckboxOnChange },
 					select: { ...args.filter.select, onChange: handleSelectOnChange }
 				}} table={table} tableOnScrollEnd={handleTableOnScrollEnd} />
 				{isLoading ? <div>LOADING...</div> : <div>.</div>}
@@ -56,10 +69,6 @@ export const Integration: Story = {
 		);
 	},
 	args: {
-		table: {
-			selectedFields: ['id', 'firstName', 'birthDate', 'address.city'],
-			initialLimit: 10
-		},
 		filter: {
 			name: {
 				title: 'Name',
@@ -68,15 +77,17 @@ export const Integration: Story = {
 			select: {
 				title: 'City',
 				placeHolder: 'Select City',
+				options: await Features.filters.city.getCities(),
 				titleBold: true
 			},
 			checkbox: {
-				title: 'Highlight oldest per city'
+				title:'Highlight oldest per city',
 			}
-		}
+		},
 	}
 
-};
+}
+;
 
 
 

@@ -14,8 +14,8 @@ consola.level = LOG_LEVELS.DEBUG;
 
 
 const UtilitiesLogger = {
-	getTestLogger: () => {
-		return consola.withTag('Test');
+	getTestLogger: (path: string) => {
+		return consola.withTag(`Test/${path}`);
 	},
 	getBlocks: () => {
 

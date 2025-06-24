@@ -4,7 +4,7 @@ import { CSSProperties } from 'react';
 
 interface Item {
 	values: string[];
-	highlighted?: boolean;
+	isOldest?: boolean;
 }
 
 export interface TableListItemProps {
@@ -16,7 +16,7 @@ const TableListItem = (props: TableListItemProps) => {
 	const { item } = props;
 
 	const itemSelectedStyle: CSSProperties = {
-		background: item?.highlighted ? '#AFD7FB' : 'white',
+		background: item?.isOldest ? '#AFD7FB' : 'white',
 		borderRadius: 10,
 		padding: 5,
 	};

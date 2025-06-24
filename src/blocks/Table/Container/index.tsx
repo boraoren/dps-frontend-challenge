@@ -2,7 +2,7 @@ import Table from '../index.tsx';
 
 export interface TableListItem {
 	values: string[];
-	highlighted?: boolean;
+	isOldest?: boolean;
 }
 
 interface Pagination {

@@ -5,7 +5,7 @@ import FilterContainer from '../../Filter/Container';
 
 export interface TableListItem {
 	values: string[];
-	highlighted?: boolean;
+	isOldest?: boolean;
 }
 
 interface Pagination {
@@ -18,13 +18,9 @@ interface Table {
 	tableHeaders: string[];
 	tableListItems: TableListItem[];
 	pagination: Pagination;
+	oldestPerCity: boolean;
 }
 
-
-interface Filter {
-	key: string;
-	value: string;
-}
 
 export interface CardUserListProps {
 	filter: FilterProps;

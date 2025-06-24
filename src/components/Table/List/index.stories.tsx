@@ -33,7 +33,7 @@ export const Highlighted: Story = {
 			values: ['Alotta Fudge', 'New York', '1.3.1995' ],
 		},{
 			values: ['Stan Still', 'Dallas', '31.10.1952' ],
-			highlighted: true
+			isOldest: true
 		}]
 	}
 };

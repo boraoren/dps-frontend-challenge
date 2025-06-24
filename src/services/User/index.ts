@@ -1,5 +1,6 @@
 import Api, { ApiEntityMap, ApiPathName } from '../../api';
 import Utilities from '../../utilities';
+import Database from '../Database/database.ts';
 
 const logger = Utilities.logger.getServicesLogger();
 const LOGGER_USER_SERVICES_GET_LIST = 'services/user/get/list';
@@ -18,8 +19,26 @@ interface Filter {
 	value: string;
 }
 
+interface Options {
+	select: string[];
+}
+
+interface Filters {
+	name?: string;
+	city?: string;
+	oldestPerCity?: boolean;
+}
+
+interface Pagination {
+	limit: number;
+	skip?: number;
+}
+
 
 const ServicesUser = {
+	getListFromDatabase: (pagination: Pagination, options:Options,filters?: Filters) => {
+		return Database.getUsers(pagination, options, filters);
+	},
 	getList:  async <K extends keyof ApiEntityMap, T>(parameters: {
 		selectedFields: readonly SelectableField<T>[];
 		limitMax?: number;

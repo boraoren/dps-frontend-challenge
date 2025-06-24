@@ -3,7 +3,7 @@ import TableList from '../../components/Table/List';
 
 interface TableListItem {
 	values: string[];
-	highlighted?: boolean;
+	isOldest?: boolean;
 }
 
 export interface TableProps {
