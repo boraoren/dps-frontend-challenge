@@ -79,8 +79,8 @@ const Database = {
 
 		}) as UserDomain[];
 
-		users = Database.limitUsers(limit, users);
 		users = Database.skipUsers(skip, users);
+		users = Database.limitUsers(limit, users);
 
 		const total = users.length;
 		return { users, total, skip, limit: users.length };

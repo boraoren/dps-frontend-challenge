@@ -49,7 +49,7 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 				};
 			}
 			return {
-				...prevState,city: selected
+				...prevState, city: selected
 			};
 		});
 	};
@@ -74,8 +74,12 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 		async (skip: number, reset: boolean) => {
 			setIsLoading(true);
 			try {
+				const _pagination: Pagination = {
+					limit: pagination.limit,
+					skip
+				};
 				const result = Features.users.getTableByDatabase(
-					pagination,
+					_pagination,
 					options,
 					_filters);
 
