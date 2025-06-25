@@ -3,14 +3,14 @@ import Database from './database.ts';
 
 const logger = Utilities.logger.getTestLogger('services/database');
 
+
 interface Concat {
 	values: string[];
 	to: string;
 }
-
 interface Options {
 	select: string[];
-	concat?: Concat;
+	concat?: Concat[];
 }
 
 
@@ -729,6 +729,86 @@ describe('getUsers function', () => {
 				logger.debug(users);
 				expect(users).toEqual(expectedUsers);
 			});
+		});
+	});
+
+	given('combine firstName and lastName and put it in Name property', () => {
+		when('user list is fetched with a limit of 208', () => {
+			const limit = 10;
+			const options: Options = {
+				select: ['id', 'firstName', 'lastName', 'address.city'],
+				concat: {
+					items:[{
+						values: ['firstName','lastName'],
+						to: 'name',
+					}]
+				}
+			};
+
+			const getUsersResponse = Database.getUsers({ limit }, options);
+			const users = getUsersResponse.users;
+
+			logger.debug('USERS: ' ,users);
+
+			const expectedUsers = [
+				{
+					"city": "Phoenix",
+					"id": 1,
+					"name": "Emily Johnson"
+				},
+				{
+					"city": "Houston",
+					"id": 2,
+					"name": "Michael Williams"
+				},
+				{
+					"city": "Washington",
+					"id": 3,
+					"name": "Sophia Brown"
+				},
+				{
+					"city": "Seattle",
+					"id": 4,
+					"name": "James Davis"
+				},
+				{
+					"city": "Jacksonville",
+					"id": 5,
+					"name": "Emma Miller"
+				},
+				{
+					"city": "Fort Worth",
+					"id": 6,
+					"name": "Olivia Wilson"
+				},
+				{
+					"city": "Indianapolis",
+					"id": 7,
+					"name": "Alexander Jones"
+				},
+				{
+					"city": "Fort Worth",
+					"id": 8,
+					"name": "Ava Taylor"
+				},
+				{
+					"city": "San Antonio",
+					"id": 9,
+					"name": "Ethan Martinez"
+				},
+				{
+					"city": "New York",
+					"id": 10,
+					"name": "Isabella Anderson"
+				}
+			];
+
+			then('it should return the corresponding users.', async () => {
+				logger.debug(users);
+				expect(users).toEqual(expectedUsers);
+			});
+
+
 		});
 	});
 

@@ -2,9 +2,9 @@ import Api, { ApiEntityMap, ApiPathName } from '../../api';
 import Utilities from '../../utilities';
 import Database from '../Database/database.ts';
 
-const logger = Utilities.logger.getServicesLogger();
-const LOGGER_USER_SERVICES_GET_LIST = 'services/user/get/list';
-const LOGGER_USER_SERVICES_GET_LIMIT_MAX = 'services/user/getLimitMax';
+const logger = Utilities.logger.getServicesLogger('user/');
+const LOGGER_USER_SERVICES_GET_LIST = 'get/list';
+const LOGGER_USER_SERVICES_GET_LIMIT_MAX = 'getLimitMax';
 
 
 type SelectableField<T> =

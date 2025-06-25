@@ -1,9 +1,8 @@
-import CardUserList, { CardUserListProps } from '../index.tsx';
-import { useEffect } from 'react';
-import Features from '../../../../features';
+import CardUserList from '../index.tsx';
 import { InputProps } from '../../../../components/Input';
 import { SelectProps } from '../../../../components/Select';
 import { CheckboxProps } from '../../../../components/Checkbox';
+import useTableForDatabase from '../../../Table/index.hook.database.tsx';
 
 interface Filter {
 	name: InputProps;
@@ -13,8 +12,8 @@ interface Filter {
 
 interface Pagination {
 	limit: number;
-	skip: number;
-	total: number;
+	skip?: number;
+	total?: number;
 }
 
 export interface TableListItem {
@@ -23,31 +22,60 @@ export interface TableListItem {
 }
 
 
-interface Table {
-	tableHeaders: string[];
-	tableListItems: TableListItem[];
+interface Concat {
+	values: string[];
+	to: string;
+}
+
+interface Options {
+	select: string[];
+	concat?: Concat[];
+}
+
+
+interface CardUserListContainer {
+	filter: Filter;
+	options: Options;
 	pagination: Pagination;
 }
 
-interface CardUserListProps {
-	filter: Filter;
-	table: Table;
-	tableOnScrollEnd: () => void;
-}
+const CardUserListContainer = (props: CardUserListContainer) => {
+	const { filter, options, pagination } = props;
 
-
-const CardUserListContainer = (props: CardUserListProps) => {
-	const { table, filter, tableOnScrollEnd } = props;
-
-	useEffect(() => {
-		const fetchCities = async () => {
-			filter.select.options = await Features.filters.city.getCities();
-		};
-		fetchCities();
-	}, []);
+	const {
+		table,
+		handleSelectOnChange,
+		handleTableOnScrollEnd,
+		isLoading,
+		handleCheckboxOnChange,
+		handleNameOnChange
+	} = useTableForDatabase(
+		pagination,
+		options
+	);
 
 	return (
-		<CardUserList filter={filter} table={table} tableOnScrollEnd={tableOnScrollEnd} />
+		<>
+			<CardUserList filter={{
+				name: {
+					title: filter.name.title,
+					titleBold: filter.name.titleBold,
+					onChange: handleNameOnChange
+				},
+				checkbox: {
+					title: filter.checkbox.title,
+					onChange: handleCheckboxOnChange
+				},
+				select: {
+					title: filter.select.title,
+					titleBold: filter.select.titleBold,
+					options: filter.select.options,
+					onChange: handleSelectOnChange,
+					placeHolder: filter.select.placeHolder
+				}
+			}} table={table} tableOnScrollEnd={handleTableOnScrollEnd} />
+			{isLoading ? <div>LOADING...</div> : <div>.</div>}
+		</>
 	);
 };
 

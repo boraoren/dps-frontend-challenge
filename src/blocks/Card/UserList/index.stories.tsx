@@ -22,9 +22,9 @@ export const Default: Story = {
 	render: (args) => {
 		return (
 			<CardUserList {...args} filter={{
-				name: {...args.filter.name, onChange: action('name changed')},
-				checkbox: {...args.filter.checkbox,onChange: action('isChecked')},
-				select: {...args.filter.select, onChange: action('city changed')}
+				name: args.filter.name,
+				checkbox: args.filter.checkbox,
+				select: args.filter.select
 			}} />
 		);
 	},

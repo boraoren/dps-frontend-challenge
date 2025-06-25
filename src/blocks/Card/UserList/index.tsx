@@ -31,10 +31,11 @@ export interface CardUserListProps {
 const CardUserList = (props: CardUserListProps) => {
 
 	const { filter, table, tableOnScrollEnd } = props;
+	const {name, select, checkbox} = filter;
 
 	return (
 		<Card>
-			<FilterContainer {...filter} />
+			<FilterContainer name={name} select={select} checkbox={checkbox}/>
 			<TableContainer table={table} tableOnScrollEnd={tableOnScrollEnd} />
 		</Card>
 	);

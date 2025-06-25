@@ -1,14 +1,17 @@
 import data from './database.json';
 import UserDomain from '../User/index.domain.ts';
+import Utilities from '../../utilities';
 
-interface Concat{
+const logger = Utilities.logger.getServicesLogger('database');
+const LOGGER_PATH = 'getUsers';
+
+interface Concat {
 	values: string[];
 	to: string;
 }
-
 interface Options {
 	select: string[];
-	concat?: Concat;
+	concat?: Concat[];
 }
 
 interface Filters {
@@ -30,13 +33,13 @@ const Database = {
 	getUsers: (pagination: Pagination, options: Options, filters?: Filters) => {
 		const { limit = 30, skip = 0 } = pagination;
 
-
 		let users = [...data.users];
 
 		if (filters) {
 
+			//set oldest per city
 			if (filters.oldestPerCity) {
-				users = Database.getOldestPerCity(users);
+				users = Database.setOldestPerCity(users);
 			}
 			//filter for name and city
 			users = users.filter((user) => {
@@ -62,29 +65,30 @@ const Database = {
 
 		}
 
-		//filter for oldest per city
-		users = users.map((item) => {
+		//projection
+		users = users.map((user) => {
 			let select: string[] = [];
 			if (filters && filters?.oldestPerCity) {
 				select = options.select.concat([OptionFlag.isOldest]);
-			}else{
+			} else {
 				select = options.select;
 			}
 
-			return select.reduce((acc, field) => {
-				const [top, nested] = field.toString().split('.');
-				const topValue = (item as Record<string, unknown>)[top];
-				if (nested && typeof topValue === 'object' && topValue !== null) {
-					(acc as Record<string, unknown>)[nested] = (topValue as Record<string, unknown>)[nested];
+			return select.reduce((newField, selectedFields) => {
+				const [parentSelectedField, nestedSelectedField] = selectedFields.toString().split('.');
+				const userParentPropertyValue = (user as Record<string, unknown>)[parentSelectedField];
+				if (nestedSelectedField && typeof userParentPropertyValue === 'object' && userParentPropertyValue !== null) {
+					(newField as Record<string, unknown>)[nestedSelectedField] = (userParentPropertyValue as Record<string, unknown>)[nestedSelectedField];
 				} else {
-					(acc as Record<string, unknown>)[top] = topValue;
+					(newField as Record<string, unknown>)[parentSelectedField] = userParentPropertyValue;
 				}
 
-				return acc;
+				return newField;
 			}, {} as Partial<UserDomain>);
 
 		}) as UserDomain[];
 
+		users = Database.concatFields(users, options);
 		users = Database.skipUsers(skip, users);
 		users = Database.limitUsers(limit, users);
 
@@ -97,7 +101,8 @@ const Database = {
 	skipUsers: (skip: number, users: UserDomain[]) => {
 		return users.slice(skip);
 	},
-	getOldestPerCity: (users: UserDomain[]) => {
+	//TODO optimize
+	setOldestPerCity: (users: UserDomain[]) => {
 		const oldestMap = new Map<string, UserDomain>();
 
 		users.forEach(user => {
@@ -117,6 +122,28 @@ const Database = {
 			...user,
 			[OptionFlag.isOldest]: oldestMap.get(user.address.city)?.id === user.id
 		}));
+
+		return users;
+	},
+
+	concatFields: (users: UserDomain[], options: Options) => {
+		if (options.concat) {
+			options.concat.forEach((item) => {
+				//TODO fix type
+				users = users.map((user) => {
+					const mergedValue = item.values.map((key) => user[key]).join(' ');
+
+					const rest = Object.fromEntries(
+						Object.entries(user).filter(([key]) => !item.values.includes(key))
+					);
+
+					return {
+						...rest,
+						[item.to]: mergedValue
+					};
+				});
+			});
+		}
 
 		return users;
 	}

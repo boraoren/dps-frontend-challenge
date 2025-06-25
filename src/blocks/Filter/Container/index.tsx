@@ -14,6 +14,8 @@ interface FilterContainerProps {
 
 const FilterContainer = (props: FilterContainerProps) => {
 	const { name, select, checkbox } = props;
+
+
 	const [filterSelect, setFilterSelect] = useState<SelectProps>({
 		title: select.title,
 		titleBold: select.titleBold,
@@ -22,16 +24,28 @@ const FilterContainer = (props: FilterContainerProps) => {
 		placeHolder: select.placeHolder
 	});
 
+	const fetchCities = async () => {
+		const result = await Features.filters.city.getCities();
+		setFilterSelect((prevState) => {
+			return {
+				...prevState,
+				options: result
+			};
+		});
+	};
+
+	//for storybook
 	useEffect(() => {
-		const fetchCities = async () => {
-			const result = await Features.filters.city.getCities();
-			setFilterSelect((prevState)=> {
-				return{
-					...prevState,
-					options: result
-				};
-			});
-		};
+		setFilterSelect((prevState)=> ({
+			...prevState,
+			title: select.title,
+			titleBold: select.titleBold,
+			placeHolder: select.placeHolder
+		}));
+	}, [select]);
+
+
+	useEffect(() => {
 		fetchCities();
 	}, []);
 

@@ -1,11 +1,9 @@
 import Services from '../../../services';
 
-
-interface Concat{
+interface Concat {
 	values: string[];
 	to: string;
 }
-
 interface Options {
 	select: string[];
 	concat?: Concat[]
@@ -29,10 +27,11 @@ const FeaturesUsersGetTableByDatabase = (pagination: Pagination, options: Option
 
 	const users = getListFromDatabaseResponse.users;
 
-	const tableHeaders = options.select.map(field => {
-		const parts = field.split('.');
-		return parts[parts.length - 1];
-	});
+	const tableHeaders =Object.entries(users[0])
+		.filter(([key, value]) =>
+			key !== 'isOldest' && value !== null && value !== undefined && value !== false && value !== ''
+		)
+		.map(([key]) => key);
 
 	const tableListItems = users.map((user) => {
 		return {

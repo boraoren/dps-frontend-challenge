@@ -17,7 +17,7 @@ const Checkbox = (props: CheckboxProps) => {
 	};
 
 	const withTitle = () => {
-		if (title) return <Label text={'Highlight oldest per city'} />;
+		if (title) return <Label text={title} />;
 		return null;
 	};
 

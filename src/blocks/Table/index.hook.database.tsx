@@ -10,7 +10,7 @@ interface TableListItem {
 }
 
 
-interface Concat{
+interface Concat {
 	values: string[];
 	to: string;
 }
@@ -40,11 +40,18 @@ interface Table {
 
 const useTableForDatabase = (pagination: Pagination, options: Options, filters?: Filters) => {
 	const [_filters, _setFilters] = useState<Filters | undefined>(filters);
+
 	const [table, setTable] = useState<Table>({
 		tableHeaders: options.select,
 		tableListItems: [],
 		pagination: { limit: pagination.limit, skip: pagination.skip }
 	});
+
+	useEffect(()=> {
+		setUserList(pagination, true);
+	},[pagination.limit]);
+
+
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const handleSelectOnChange = (selected: string) => {
@@ -92,11 +99,11 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 
 
 	const setUserList = useCallback(
-		async (skip: number, reset: boolean) => {
+		async ({skip=0, limit=30}:Pagination, reset:boolean) => {
 			setIsLoading(true);
 			try {
 				const _pagination: Pagination = {
-					limit: pagination.limit,
+					limit,
 					skip
 				};
 				const result = Features.users.getTableByDatabase(
@@ -107,12 +114,12 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 				//TODO fix type
 				setTable((prev) => ({
 					...prev,
-					tableHeaders: options.select,
+					tableHeaders: result.tableHeaders,
 					tableListItems: reset ? result.tableListItems : [...prev.tableListItems, ...result.tableListItems],
 					pagination: {
 						...result.pagination,
 						skip,
-						limit: reset ? pagination.limit : prev.pagination.limit
+						limit: reset ? limit : prev.pagination.limit
 					}
 				}));
 

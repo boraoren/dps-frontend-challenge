@@ -14,8 +14,8 @@ consola.level = LOG_LEVELS.DEBUG;
 
 
 const UtilitiesLogger = {
-	getTestLogger: (path: string) => {
-		return consola.withTag(`Test/${path}`);
+	getTestLogger: (tag: string) => {
+		return consola.withTag(`Test/${tag}`);
 	},
 	getBlocks: () => {
 
@@ -24,8 +24,8 @@ const UtilitiesLogger = {
 	getFeaturesLogger: () => {
 		return consola.withTag('Features');
 	},
-	getServicesLogger: () => {
-		return consola.withTag('Services');
+	getServicesLogger: (tag: string) => {
+		return consola.withTag(`Services/${tag}`);
 	},
 	getApiLogger: () => {
 		return consola.withTag('Api');
@@ -36,9 +36,9 @@ const UtilitiesLogger = {
 	getStorybookLogger: () => {
 		return consola.withTag('Storybook');
 	},
-	getHooks: (path: string) => {
-		return consola.withTag(`Hooks/${path}`);
-	}
+	getHooks: (tag: string) => {
+		return consola.withTag(`Hooks/${tag}`);
+	},
 };
 
 export default UtilitiesLogger;
