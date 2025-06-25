@@ -1,19 +1,50 @@
 import dpsLogo from './assets/DPS.svg';
 import './App.css';
 import CardUserListContainer from './blocks/Card/UserList/Container';
-import { useState } from 'react';
-
-
-interface Filter {
-	key: string;
-	value: string;
-}
-
 
 function App() {
-	const [filter, setFilter] = useState<Filter | undefined>();
-	const handleSelectOnChange = (selected: string) => {
-		setFilter({ key: 'address.city', value: selected });
+	const props=  {
+		filter: {
+			name: {
+				title: 'Name',
+				titleBold: true,
+			},
+			select: {
+				title: 'City',
+				titleBold: true,
+				placeHolder: 'Select City',
+			},
+
+			checkbox: {
+				title: 'Highlight oldest per city',
+			},
+		},
+		options: {
+			select: [
+				'id',
+				'name',
+				'firstName',
+				'lastName',
+				'address.city',
+				'birthDate',
+			],
+
+			concat: [
+				{
+					values: ['firstName', 'lastName'],
+					to: 'name',
+				},
+				{
+					values: ['birthDate'],
+					to: 'Birthday',
+				},
+
+			],
+		},
+		pagination: {
+			limit: 15,
+			skip: 0,
+		},
 	};
 
 	return (
@@ -24,26 +55,10 @@ function App() {
 				</a>
 			</div>
 			<div className="home-card">
-				<p>Your solution goes here 😊</p>
-				<CardUserListContainer filter={{
-					name: {
-						title: 'Name',
-						titleBold: true
-					},
-					select: {
-						title: 'City',
-						placeHolder: 'Select City',
-						titleBold: true,
-						onChange: handleSelectOnChange
-					},
-					checkbox: {
-						title: 'Highlight oldest per city'
-					}
-				}} table={{
-					selectedFields: ['id', 'firstName', 'birthDate', 'address.city'],
-					initialLimit: 10,
-					filter
-				}} />
+				{/* TODO fix type */}
+				<CardUserListContainer pagination={props.pagination}
+					options={props.options}
+					filter={props.filter}/>
 			</div>
 		</>
 	);
