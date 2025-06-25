@@ -1,10 +1,15 @@
 import Services from '../../../services';
-import { OptionFlag } from '../../../services/Database/database.ts';
+
+
+interface Concat{
+	values: string[];
+	to: string;
+}
 
 interface Options {
 	select: string[];
+	concat?: Concat[]
 }
-
 interface Filters {
 	name?: string;
 	city?: string;

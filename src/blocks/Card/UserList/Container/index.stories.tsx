@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import CardUserList from './index.tsx';
 import CardUserListContainer from './index.tsx';
-import { action } from '@storybook/addon-actions';
-import { useTable } from '../../../Table/index.hook.tsx';
 import useTableForDatabase from '../../../Table/index.hook.database.tsx';
-import Features from '../../../../features';
-import { useState } from 'react';
 
 const meta = {
 	title: 'DPS/Blocks/Card/UserList/Container',
@@ -18,14 +14,14 @@ const meta = {
 	args: {}
 } satisfies Meta<typeof CardUserList>;
 
-interface Options {
-	select: string[];
+interface Concat{
+	values: string[];
+	to: string;
 }
 
-interface Filters {
-	name?: string;
-	city?: string;
-	oldestPerCity?: boolean;
+interface Options {
+	select: string[];
+	concat?: Concat[]
 }
 
 interface Pagination {
@@ -44,7 +40,11 @@ export const Integration: Story = {
 			limit: 10
 		};
 		const options: Options = {
-			select: ['id', 'firstName','lastName', 'address.city']
+			select: ['id', 'firstName','lastName', 'address.city'],
+			concat: [{
+				values: ['firstName','lastName'],
+				to: 'Name'
+			}]
 		};
 
 		const {
@@ -79,7 +79,6 @@ export const Integration: Story = {
 			select: {
 				title: 'City',
 				placeHolder: 'Select City',
-				options: await Features.filters.city.getCities(),
 				titleBold: true
 			},
 			checkbox: {

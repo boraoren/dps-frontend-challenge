@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
-import { action } from '@storybook/addon-actions';
+import { useCallback, useEffect, useState } from 'react';
 import Features from '../../features';
 import Utilities from '../../utilities';
 
@@ -7,11 +6,18 @@ const logger = Utilities.logger.getHooks('/Blocks/Table');
 
 interface TableListItem {
 	values: string[];
+	to: string;
 }
 
 
+interface Concat{
+	values: string[];
+	to: string;
+}
+
 interface Options {
 	select: string[];
+	concat?: Concat[]
 }
 
 interface Filters {
@@ -98,7 +104,7 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 					options,
 					_filters);
 
-
+				//TODO fix type
 				setTable((prev) => ({
 					...prev,
 					tableHeaders: options.select,

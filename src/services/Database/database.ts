@@ -1,8 +1,14 @@
 import data from './database.json';
 import UserDomain from '../User/index.domain.ts';
 
+interface Concat{
+	values: string[];
+	to: string;
+}
+
 interface Options {
 	select: string[];
+	concat?: Concat;
 }
 
 interface Filters {
@@ -32,7 +38,7 @@ const Database = {
 			if (filters.oldestPerCity) {
 				users = Database.getOldestPerCity(users);
 			}
-
+			//filter for name and city
 			users = users.filter((user) => {
 				const hasName = typeof filters.name === 'string';
 				const hasCity = typeof filters.city === 'string';
@@ -56,7 +62,7 @@ const Database = {
 
 		}
 
-
+		//filter for oldest per city
 		users = users.map((item) => {
 			let select: string[] = [];
 			if (filters && filters?.oldestPerCity) {
