@@ -34,6 +34,7 @@ const Database = {
 		const { limit = 30, skip = 0 } = pagination;
 
 		let users = [...data.users];
+		users = users.sort((userA, userB) => userA.firstName.localeCompare(userB.firstName));
 
 		if (filters) {
 
