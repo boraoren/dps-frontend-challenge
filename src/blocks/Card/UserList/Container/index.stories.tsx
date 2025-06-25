@@ -44,23 +44,25 @@ export const Integration: Story = {
 			limit: 10
 		};
 		const options: Options = {
-			select: ['id', 'firstName','address.city']
+			select: ['id', 'firstName','lastName', 'address.city']
 		};
 
-		const { table, handleSelectOnChange, handleTableOnScrollEnd, isLoading, handleCheckboxOnChange } = useTableForDatabase(
+		const {
+			table,
+			handleSelectOnChange,
+			handleTableOnScrollEnd,
+			isLoading,
+			handleCheckboxOnChange,
+			handleNameOnChange,
+		} = useTableForDatabase(
 			pagination,
-			options,
+			options
 		);
-
-		const handleOnNameChange = (value: string) => {
-			action('name changed')(value);
-		};
-
 
 		return (
 			<>
 				<CardUserListContainer filter={{
-					name: { ...args.filter.name, onChange: handleOnNameChange },
+					name: { ...args.filter.name, onChange: handleNameOnChange },
 					checkbox: { ...args.filter.checkbox, onChange: handleCheckboxOnChange },
 					select: { ...args.filter.select, onChange: handleSelectOnChange }
 				}} table={table} tableOnScrollEnd={handleTableOnScrollEnd} />
@@ -81,9 +83,9 @@ export const Integration: Story = {
 				titleBold: true
 			},
 			checkbox: {
-				title:'Highlight oldest per city',
+				title: 'Highlight oldest per city'
 			}
-		},
+		}
 	}
 
 }

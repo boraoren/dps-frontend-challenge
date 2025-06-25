@@ -69,6 +69,21 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 		});
 	};
 
+	const handleNameOnChange = (value: string) => {
+		_setFilters((prevState) => {
+			if (!prevState) {
+				return {
+					name: value,
+				};
+			}
+
+			return {
+				...prevState,
+				name: value
+			};
+		});
+	};
+
 
 	const setUserList = useCallback(
 		async (skip: number, reset: boolean) => {
@@ -119,7 +134,8 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 		isLoading,
 		handleSelectOnChange,
 		handleTableOnScrollEnd,
-		handleCheckboxOnChange
+		handleCheckboxOnChange,
+		handleNameOnChange,
 	};
 };
 
