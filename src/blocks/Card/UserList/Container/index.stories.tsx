@@ -33,7 +33,7 @@ export const Integration: Story = {
 			},
 		},
 		options: {
-			select: ['id', 'firstName', 'lastName', 'address.city'],
+			select: ['id', 'firstName', 'lastName', 'address.city','birthDate'],
 			concat: [
 				{
 					values: ['firstName', 'lastName'],

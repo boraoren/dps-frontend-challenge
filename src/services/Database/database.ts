@@ -76,10 +76,19 @@ const Database = {
 
 			return select.reduce((newField, selectedFields) => {
 				const [parentSelectedField, nestedSelectedField] = selectedFields.toString().split('.');
-				const userParentPropertyValue = (user as Record<string, unknown>)[parentSelectedField];
+				let userParentPropertyValue = (user as Record<string, unknown>)[parentSelectedField];
 				if (nestedSelectedField && typeof userParentPropertyValue === 'object' && userParentPropertyValue !== null) {
 					(newField as Record<string, unknown>)[nestedSelectedField] = (userParentPropertyValue as Record<string, unknown>)[nestedSelectedField];
 				} else {
+					/* Begin related to
+						https://github.com/boraoren/dps-frontend-challenge/issues/43
+						https://github.com/boraoren/dps-frontend-challenge/issues/53
+					 */
+					if(parentSelectedField === 'birthDate'){
+						const date = new Date(userParentPropertyValue as string);
+						userParentPropertyValue  = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`;
+					}
+					/* End related to */
 					(newField as Record<string, unknown>)[parentSelectedField] = userParentPropertyValue;
 				}
 
