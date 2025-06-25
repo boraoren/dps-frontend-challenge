@@ -1,7 +1,7 @@
 import TableListItem from './Item';
 import './index.css';
 import Hooks from '../../../hooks';
-import { useRef } from 'react';
+import { CSSProperties, useRef } from 'react';
 
 interface Item {
 	values: string[];
@@ -29,7 +29,12 @@ const TableList = (props: TableListProps) => {
 		<tbody className='tableList' ref={tableListReference}>
 
 			{items.map((item) => {
-				return <tr>
+
+				const itemSelectedStyle: CSSProperties = {
+					background: item?.isOldest ? '#AFD7FB' : 'white',
+				};
+
+				return <tr style={itemSelectedStyle}>
 					<TableListItem item={item} isOldest={item.isOldest} />
 				</tr>;
 			})}

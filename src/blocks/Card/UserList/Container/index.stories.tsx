@@ -33,7 +33,8 @@ export const Integration: Story = {
 			}
 		},
 		options: {
-			//TODO this is just hack, its purpose is to merge columns by given using values.
+			//TODO this is just hack, when merge firstName and lastName it maps to name. Need to add name to select to show in header.
+			//fix using https://github.com/boraoren/dps-frontend-challenge/issues/55
 			select: ['name','firstName', 'lastName', 'address.city', 'birthDate'],
 			concat: [
 				{
