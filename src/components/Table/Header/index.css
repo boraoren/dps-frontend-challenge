@@ -1,7 +1,5 @@
 .tableHeader {
-    display: flex;
-    flex-wrap: wrap; /* 👈 allows items to stack if too narrow */
-    justify-content: space-around;
+    display: block;
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 100;
@@ -13,4 +11,9 @@
     border-style: solid;
     padding: 8px 12px;
     gap: 10px;
+}
+
+
+.tableHeader th{
+    width: 200px;
 }

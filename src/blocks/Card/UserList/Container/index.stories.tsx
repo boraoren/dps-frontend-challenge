@@ -5,11 +5,11 @@ const meta = {
 	title: 'DPS/Blocks/Card/UserList/Container',
 	component: CardUserListContainer,
 	parameters: {
-		layout: 'centered',
+		layout: 'centered'
 	},
 	tags: ['autodocs'],
 	argTypes: {},
-	args: {},
+	args: {}
 } satisfies Meta<typeof CardUserListContainer>;
 
 export default meta;
@@ -20,29 +20,35 @@ export const Integration: Story = {
 		filter: {
 			name: {
 				title: 'Name',
-				titleBold: true,
+				titleBold: true
 			},
 			select: {
 				title: 'City',
 				titleBold: true,
-				placeHolder: 'Select City',
+				placeHolder: 'Select City'
 			},
 
 			checkbox: {
-				title: 'Highlight oldest per city',
-			},
+				title: 'Highlight oldest per city'
+			}
 		},
 		options: {
-			select: ['id', 'firstName', 'lastName', 'address.city','birthDate'],
+			//TODO this is just hack, its purpose is to merge columns by given using values.
+			select: ['name','firstName', 'lastName', 'address.city', 'birthDate'],
 			concat: [
 				{
 					values: ['firstName', 'lastName'],
-					to: 'Name',
-				},
-			],
+					to: 'name'
+				}, {
+					//TODO this is just hack, its purpose is to merge columns by given using values.
+					//fix using https://github.com/boraoren/dps-frontend-challenge/issues/55
+					values: ['birthDate'],
+					to: 'Birthday'
+				}
+			]
 		},
 		pagination: {
-			limit: 10,
-		},
-	},
+			limit: 10
+		}
+	}
 };

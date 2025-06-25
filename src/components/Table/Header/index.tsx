@@ -11,11 +11,15 @@ const TableHeader = (props: TableHeaderProps) => {
 	const { headers } = props;
 
 	return (
-		<div className="tableHeader">
-			{headers.map((header) => {
-				return <Label text={Utilities.string.toReadableText(header)} bold />;
-			})}
-		</div>
+		<thead className='tableHeader'>
+			<tr>
+				{headers.map((header) => {
+					return <th><Label text={Utilities.string.toReadableText(header)} bold /></th>;
+				})}
+			</tr>
+		</thead>
+
+
 	);
 };
 

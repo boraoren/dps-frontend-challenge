@@ -1,5 +1,6 @@
 import TableHeader from '../../components/Table/Header';
 import TableList from '../../components/Table/List';
+import './index.css';
 
 interface TableListItem {
 	values: string[];
@@ -16,12 +17,10 @@ const Table = (props: TableProps) => {
 
 	const { tableHeaders, tableListItems, onScrollEnd } = props;
 	return (
-		<div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
-			<div style={{ marginBottom: -2 }}>
-				<TableHeader headers={tableHeaders} />
-			</div>
+		<table className="table">
+			<TableHeader headers={tableHeaders} />
 			<TableList items={tableListItems} onScrollEnd={onScrollEnd} />
-		</div>
+		</table>
 	);
 };
 

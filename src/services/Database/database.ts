@@ -65,6 +65,11 @@ const Database = {
 
 		}
 
+
+		users = Database.skipUsers(skip, users);
+		users = Database.limitUsers(limit, users);
+
+
 		//projection
 		users = users.map((user) => {
 			let select: string[] = [];
@@ -98,8 +103,6 @@ const Database = {
 		}) as UserDomain[];
 
 		users = Database.concatFields(users, options);
-		users = Database.skipUsers(skip, users);
-		users = Database.limitUsers(limit, users);
 
 		const total = users.length;
 		return { users, total, skip, limit: users.length };

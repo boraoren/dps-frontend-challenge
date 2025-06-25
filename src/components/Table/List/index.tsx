@@ -10,12 +10,12 @@ interface Item {
 
 export interface TableListProps {
 	items: Item[];
-	onScrollEnd: ()=>void;
+	onScrollEnd: () => void;
 	isLoading?: boolean;
 }
 
 const TableList = (props: TableListProps) => {
-	const { items,onScrollEnd, isLoading } = props;
+	const { items, onScrollEnd, isLoading } = props;
 
 	const tableListReference = useRef<HTMLDivElement>(null);
 	Hooks.useScrollEnd(tableListReference, {
@@ -26,11 +26,15 @@ const TableList = (props: TableListProps) => {
 	});
 
 	return (
-		<div className="tableList" ref={tableListReference}>
+		<tbody className='tableList' ref={tableListReference}>
+
 			{items.map((item) => {
-				return   <TableListItem item={item} isOldest={item.isOldest}/>;
+				return <tr>
+					<TableListItem item={item} isOldest={item.isOldest} />
+				</tr>;
 			})}
-		</div>
+
+		</tbody>
 	);
 };
 

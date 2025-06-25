@@ -1,5 +1,4 @@
 import Label from '../../../Label';
-import './index.css';
 import { CSSProperties } from 'react';
 
 interface Item {
@@ -19,15 +18,15 @@ const TableListItem = (props: TableListItemProps) => {
 		background: item?.isOldest ? '#AFD7FB' : 'white',
 		borderRadius: 10,
 		padding: 5,
+		width: 200,
+		textAlign: 'center'
 	};
 
-	return (
-		<div className="tableListItem" style={itemSelectedStyle}>
-			{item.values.map((value) => {
-				return <div><Label text={value} /></div>;
-			})}
-		</div>
-	);
+	return (item.values.map((value) => {
+		return <td style={itemSelectedStyle}>
+			<Label text={value} />
+		</td>;
+	}));
 };
 
 export default TableListItem;
