@@ -2,6 +2,7 @@ import TableListItem from './Item';
 import './index.css';
 import Hooks from '../../../hooks';
 import { CSSProperties, useRef } from 'react';
+import Label from '../../Label';
 
 interface Item {
 	values: string[];
@@ -24,6 +25,14 @@ const TableList = (props: TableListProps) => {
 		},
 		offset: 1
 	});
+
+	if(items.length === 0){
+
+		return <tbody className='tableList'>
+			<tr><Label text='NO DATA FOUND'/></tr>
+		</tbody>;
+	}
+
 
 	return (
 		<tbody className='tableList' ref={tableListReference}>

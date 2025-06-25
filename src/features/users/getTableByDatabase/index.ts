@@ -19,19 +19,25 @@ interface Pagination {
 	skip?: number;
 }
 
-
 const FeaturesUsersGetTableByDatabase = (pagination: Pagination, options: Options, filters?: Filters) => {
 	const getListFromDatabaseResponse = Services.user.getListFromDatabase(pagination,
 		options,
 		filters);
 
 	const users = getListFromDatabaseResponse.users;
+	let tableHeaders:string[] = [];
 
-	const tableHeaders =Object.entries(users[0])
-		.filter(([key, value]) =>
-			key !== 'isOldest' && value !== null && value !== undefined && value !== false && value !== ''
-		)
-		.map(([key]) => key);
+	//TODO make it clean
+	if(users.length === 0){
+		tableHeaders = transformFields(options.select, options);
+	}else {
+
+		tableHeaders = Object.entries(users[0])
+			.filter(([key, value]) =>
+				key !== 'isOldest' && value !== null && value !== undefined && value !== false && value !== ''
+			)
+			.map(([key]) => key);
+	}
 
 	const tableListItems = users.map((user) => {
 		return {
@@ -57,5 +63,39 @@ const FeaturesUsersGetTableByDatabase = (pagination: Pagination, options: Option
 
 
 };
+
+
+const  transformFields = (fields: string[], options: {
+	select: string[],
+	concat: { values: string[], to: string }[]
+}): string[] => {
+	const concatMap = new Map<string, string>();
+
+	// Map every source field in concat.values to its .to field
+	options.concat.forEach(({ values, to }) => {
+		values.forEach(value => concatMap.set(value, to));
+	});
+
+	const result = new Set<string>();
+
+	for (const field of fields) {
+		// If it's mapped in concat, use the .to value
+		if (concatMap.has(field)) {
+			result.add(concatMap.get(field)!);
+		}
+		// If it's a nested field like 'address.city', take 'city'
+		else if (field.includes('.')) {
+			const parts = field.split('.');
+			result.add(parts[1]);
+		}
+		// Otherwise keep as is
+		else {
+			result.add(field);
+		}
+	}
+
+	return Array.from(result);
+};
+
 
 export default FeaturesUsersGetTableByDatabase;
