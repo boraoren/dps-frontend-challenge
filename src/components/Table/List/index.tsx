@@ -27,7 +27,6 @@ const TableList = (props: TableListProps) => {
 
 	return (
 		<tbody className='tableList' ref={tableListReference}>
-
 			{items.map((item) => {
 
 				const itemSelectedStyle: CSSProperties = {

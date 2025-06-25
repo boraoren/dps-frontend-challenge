@@ -48,9 +48,12 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 	});
 
 	useEffect(()=> {
-		setUserList(pagination, true);
+		//setUserList(pagination, true);
 	},[pagination.limit]);
 
+	useEffect(() => {
+		setUserList(pagination, true);
+	}, [_filters]);
 
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -99,7 +102,7 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 
 
 	const setUserList = useCallback(
-		async ({skip=0, limit=30}:Pagination, reset:boolean) => {
+		async ({skip =0, limit = 10}:Pagination, reset:boolean) => {
 			setIsLoading(true);
 			try {
 				const _pagination: Pagination = {
@@ -133,13 +136,14 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 		[_filters]
 	);
 
-	useEffect(() => {
-		setUserList(0, true);
-	}, [_filters]);
+
 
 	const handleTableOnScrollEnd = async () => {
-		const nextSkip = table.pagination.skip + table.pagination.limit;
-		await setUserList(nextSkip, false);
+		const limit = table.pagination.limit;
+		const skip = table.pagination.skip;
+		//TODO fix type
+		const nextSkip = skip + limit;
+		await setUserList({skip: nextSkip, limit }, false);
 	};
 
 	return {

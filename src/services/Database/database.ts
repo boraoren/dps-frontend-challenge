@@ -34,7 +34,7 @@ const Database = {
 		const { limit = 30, skip = 0 } = pagination;
 
 		let users = [...data.users];
-		users = users.sort((userA, userB) => userA.firstName.localeCompare(userB.firstName));
+		users = users.sort((userA, userB) => userA.id - userB.id); //userA.firstName.localeCompare(userB.firstName));
 
 		if (filters) {
 
@@ -67,8 +67,6 @@ const Database = {
 		}
 
 
-		users = Database.skipUsers(skip, users);
-		users = Database.limitUsers(limit, users);
 
 
 		//projection
@@ -103,9 +101,12 @@ const Database = {
 
 		}) as UserDomain[];
 
-		users = Database.concatFields(users, options);
-
 		const total = users.length;
+		users = Database.concatFields(users, options);
+		users = Database.skipUsers(skip, users);
+
+		users = Database.limitUsers(limit, users);
+
 		return { users, total, skip, limit: users.length };
 	},
 	limitUsers: (limit: number, users: UserDomain[]) => {

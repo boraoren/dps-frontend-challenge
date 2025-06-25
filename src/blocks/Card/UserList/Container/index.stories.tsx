@@ -34,6 +34,7 @@ export const Integration: Story = {
 		},
 		options: {
 			select: [
+				'id',
 				'name',
 				'firstName',
 				'lastName',
@@ -54,7 +55,8 @@ export const Integration: Story = {
 			],
 		},
 		pagination: {
-			limit: 10,
+			limit: 15,
+			skip: 0,
 		},
 	},
 };
