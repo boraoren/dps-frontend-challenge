@@ -40,13 +40,14 @@ Click [here](./SCOPE.md) for detail.
    {  
      "filters": {
        "name": {
-       "title": "Name",
-       "titleBold": true
+           "title": "Name",
+           "titleBold": true,
+           "delay": 1000
    }, 
       "select": {
-      "title": "City",
-      "titleBold": true,
-      "placeHolder": "Select City"
+          "title": "City",
+          "titleBold": true,
+          "placeHolder": "Select City"
       }, 
       "checkbox": {
        "title": "Highlight oldest per city"
