@@ -2,7 +2,7 @@ import CardUserList from '../index.tsx';
 import { InputProps } from '../../../../components/Input';
 import { SelectProps } from '../../../../components/Select';
 import { CheckboxProps } from '../../../../components/Checkbox';
-import useTableForDatabase from '../../../Table/index.hook.database.tsx';
+import useTableForProxy from '../../../Table/index.hook.proxy.tsx';
 
 interface Filter {
 	name: InputProps;
@@ -49,7 +49,7 @@ const CardUserListContainer = (props: CardUserListContainer) => {
 		isLoading,
 		handleCheckboxOnChange,
 		handleNameOnChange
-	} = useTableForDatabase(
+	} = useTableForProxy(
 		pagination,
 		options
 	);

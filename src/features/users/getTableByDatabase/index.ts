@@ -19,10 +19,10 @@ interface Pagination {
 	skip?: number;
 }
 
-const FeaturesUsersGetTableByDatabase = (pagination: Pagination, options: Options, filters?: Filters) => {
-	const getListFromDatabaseResponse = Services.user.getListFromDatabase(pagination,
+const FeaturesUsersGetTableByProxy = async (pagination: Pagination, options: Options, filters?: Filters) => {
+	const getListFromDatabaseResponse = await Services.user.getListProxy({pagination,
 		options,
-		filters);
+		filters});
 
 	const users = getListFromDatabaseResponse.users;
 	let tableHeaders:string[] = [];
@@ -98,4 +98,4 @@ const  transformFields = (fields: string[], options: {
 };
 
 
-export default FeaturesUsersGetTableByDatabase;
+export default FeaturesUsersGetTableByProxy;

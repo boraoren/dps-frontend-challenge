@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import Database from '../../database';
+import UserDomain from '../../database/users/index.domain';
 
 const router = Router();
 
@@ -31,6 +32,13 @@ interface PostGetUsersBody {
 	filters: Filters;
 }
 
+interface PostGetUsersResponse {
+	users: UserDomain[];
+	total: number;
+	skip: number;
+	limit: number;
+}
+
 router.get('/ping', (
 	_req: Request, res: Response
 ) => {
@@ -43,7 +51,11 @@ router.post('/',
 		res: Response
 	) => {
 		const { pagination, options, filters } = req.body;
-		res.send(Database.users.getUsers(pagination, options, filters));
+		const response: PostGetUsersResponse = Database
+			.users
+			.getUsers(pagination, options, filters);
+
+		res.send(response);
 
 	});
 

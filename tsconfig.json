@@ -24,7 +24,7 @@
 		// "noImplicitAny": false,
 		// "checkJs": false,
 		// "strictNullChecks": false,
-		"types": ["jest", "node"],
+		"types": ["jest", "node", "cypress"],
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true
 	},

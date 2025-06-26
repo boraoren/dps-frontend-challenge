@@ -38,7 +38,7 @@ interface Table {
 	pagination: Pagination;
 }
 
-const useTableForDatabase = (pagination: Pagination, options: Options, filters?: Filters) => {
+const useTableForProxy = (pagination: Pagination, options: Options, filters?: Filters) => {
 	const [_filters, _setFilters] = useState<Filters | undefined>(filters);
 
 	const [table, setTable] = useState<Table>({
@@ -109,7 +109,7 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 					limit,
 					skip
 				};
-				const result = Features.users.getTableByDatabase(
+				const result = await Features.users.getTableByProxy(
 					_pagination,
 					options,
 					_filters);
@@ -156,4 +156,4 @@ const useTableForDatabase = (pagination: Pagination, options: Options, filters?:
 	};
 };
 
-export default useTableForDatabase;
+export default useTableForProxy;

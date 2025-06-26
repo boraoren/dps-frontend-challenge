@@ -26,7 +26,7 @@ const TableList = (props: TableListProps) => {
 		offset: 1
 	});
 
-	if(items.length === 0){
+	if(items?.length === 0){
 
 		return <tbody className='tableList'>
 			<tr><Label text='NO DATA FOUND'/></tr>

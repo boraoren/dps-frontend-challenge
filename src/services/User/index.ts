@@ -1,9 +1,8 @@
 import Api, { ApiEntityMap, ApiPathName } from '../../api';
 import Utilities from '../../utilities';
-import Database from '../Database/database.ts';
+import ApiProxy from '../../apiProxy';
 
 const logger = Utilities.logger.getServicesLogger('user/');
-const LOGGER_USER_SERVICES_GET_LIST = 'get/list';
 const LOGGER_USER_SERVICES_GET_LIMIT_MAX = 'getLimitMax';
 
 
@@ -19,8 +18,15 @@ interface Filter {
 	value: string;
 }
 
+interface Concat {
+	values: string[];
+	to: string;
+}
+
+
 interface Options {
 	select: string[];
+	concat?: Concat[];
 }
 
 interface Filters {
@@ -35,18 +41,28 @@ interface Pagination {
 }
 
 
+interface ApiProxyParameters {
+	pagination: Pagination;
+	options: Options;
+	filters?: Filters;
+}
+
 const ServicesUser = {
-	getListFromDatabase: (pagination: Pagination, options:Options,filters?: Filters) => {
-		return Database.getUsers(pagination, options, filters);
+	getListProxy: async (parameters: ApiProxyParameters) => {
+		logger.debug(`proxy/get/list: ${parameters}`);
+		const getUsersResponse = await ApiProxy.getList(ApiPathName.USERS, parameters);
+		logger.debug(`proxy/get/list: response ${getUsersResponse}`);
+		return getUsersResponse;
 	},
-	getList:  async <K extends keyof ApiEntityMap, T>(parameters: {
+
+	getList: async <K extends keyof ApiEntityMap, T>(parameters: {
 		selectedFields: readonly SelectableField<T>[];
 		limitMax?: number;
 		skip?: number;
 		filter?: Filter;
 	}): Promise<ApiEntityMap[K]> => {
 
-		logger.debug({ parameters }, LOGGER_USER_SERVICES_GET_LIST);
+		logger.debug(`get/list parameters: ${parameters}`);
 		const { selectedFields, limitMax, skip, filter } = parameters;
 
 		const usersGetListApiResponse = await Api.getList({
@@ -57,7 +73,7 @@ const ServicesUser = {
 			filter
 		});
 
-		logger.debug({  usersGetListApiResponse }, LOGGER_USER_SERVICES_GET_LIST);
+		logger.debug(`get/list response: ${usersGetListApiResponse}`);
 
 		return usersGetListApiResponse;
 	},

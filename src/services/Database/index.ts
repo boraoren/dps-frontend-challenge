@@ -2,9 +2,6 @@ import data from './database.json';
 import UserDomain from '../User/index.domain.ts';
 import Utilities from '../../utilities';
 
-const logger = Utilities.logger.getServicesLogger('database');
-const LOGGER_PATH = 'getUsers';
-
 interface Concat {
 	values: string[];
 	to: string;

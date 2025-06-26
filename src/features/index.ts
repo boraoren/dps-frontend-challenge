@@ -1,12 +1,12 @@
 import FeaturesUsersGetTable from './users/getTable';
 import FeaturesCityGetCities from './filters/city/getCities';
 import FeaturesUsersGetByName from './users/get/byName';
-import FeaturesUsersGetTableByDatabase from './users/getTableByDatabase';
+import FeaturesUsersGetTableByProxy from './users/getTableByDatabase';
 
 const Features = {
 	users:{
 		getTable: FeaturesUsersGetTable,
-		getTableByDatabase: FeaturesUsersGetTableByDatabase,
+		getTableByProxy: FeaturesUsersGetTableByProxy,
 		get: {
 			byName: FeaturesUsersGetByName,
 		}

@@ -28,8 +28,16 @@ export enum OptionFlag {
 	isOldest = 'isOldest'
 }
 
+
+interface GetUsersResponse{
+	users: UserDomain[];
+	total: number;
+	skip: number;
+	limit: number;
+}
+
 const DatabaseUsers = {
-	getUsers: (pagination: Pagination, options: Options, filters?: Filters) => {
+	getUsers: (pagination: Pagination, options: Options, filters?: Filters):GetUsersResponse => {
 		const { limit = 30, skip = 0 } = pagination;
 
 		let users = [...data.users];
@@ -64,9 +72,6 @@ const DatabaseUsers = {
 			});
 
 		}
-
-
-
 
 		//projection
 		users = users.map((user) => {
