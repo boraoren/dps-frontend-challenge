@@ -60,7 +60,8 @@ const CardUserListContainer = (props: CardUserListContainer) => {
 				name: {
 					title: filter.name.title,
 					titleBold: filter.name.titleBold,
-					onChange: handleNameOnChange
+					onChange: handleNameOnChange,
+					delay: filter.name.delay,
 				},
 				checkbox: {
 					title: filter.checkbox.title,

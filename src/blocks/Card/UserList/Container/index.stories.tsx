@@ -21,8 +21,9 @@ export const Integration: Story = {
 			name: {
 				title: 'Name',
 				titleBold: true,
-				delay: 1000 //debounce 1 second
+				delay: 0,
 			},
+
 			select: {
 				title: 'City',
 				titleBold: true,
@@ -52,7 +53,6 @@ export const Integration: Story = {
 					values: ['birthDate'],
 					to: 'Birthday',
 				},
-
 			],
 		},
 		pagination: {
