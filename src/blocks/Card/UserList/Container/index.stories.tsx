@@ -21,6 +21,7 @@ export const Integration: Story = {
 			name: {
 				title: 'Name',
 				titleBold: true,
+				delay: 1000 //debounce 1 second
 			},
 			select: {
 				title: 'City',

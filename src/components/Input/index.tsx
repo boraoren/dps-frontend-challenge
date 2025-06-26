@@ -4,6 +4,7 @@ import InputType from './index.type.ts';
 import InputPassword from './Password';
 import Label from '../Label';
 import InputContainer from './Container';
+import { useEffect, useState } from 'react';
 
 export interface InputProps {
 	type?: InputType;
@@ -11,10 +12,24 @@ export interface InputProps {
 	titleBold?: boolean;
 	onChange: (value: string) => void;
 	placeHolder?: string;
+	delay?: number;
 }
 
 const Input = (props: InputProps) => {
-	const { type, title, titleBold, onChange, placeHolder } = props;
+	const { type, title, titleBold, onChange, placeHolder, delay = 1000 } = props;
+	const [inputValue, setInputValue] = useState<string>('');
+
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			onChange(inputValue);
+		}, delay);
+
+		return () => clearTimeout(handler);
+	}, [inputValue]);
+
+	const handleOnchange = (value:string) => {
+		setInputValue(value);
+	};
 
 	switch (type) {
 	case InputType.PASSWORD:
@@ -25,7 +40,7 @@ const Input = (props: InputProps) => {
 	default:
 		return <InputContainer>
 			<Label text={title} bold={titleBold}/>
-			<InputText className={styles.input} onChange={onChange} placeHolder={placeHolder}/>
+			<InputText className={styles.input} onChange={handleOnchange} placeHolder={placeHolder}/>
 		</InputContainer>;
 	}
 

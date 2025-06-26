@@ -15,7 +15,7 @@ const Filter = (props: FilterProps) => {
 
 	return (
 		<div className="filter">
-			<Input title={name.title} titleBold={name.titleBold} onChange={name.onChange} />
+			<Input title={name.title} titleBold={name.titleBold} onChange={name.onChange} delay={name.delay}/>
 			<Select title={select.title} titleBold={select.titleBold} placeHolder={select.placeHolder}
 				options={select.options} onChange={select.onChange} />
 			<Checkbox title={checkbox.title} onChange={checkbox.onChange} />

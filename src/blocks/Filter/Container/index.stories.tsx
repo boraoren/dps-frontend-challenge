@@ -30,7 +30,8 @@ export const Default: Story = {
 	args: {
 		name: {
 			title: 'Name',
-			titleBold: true
+			titleBold: true,
+			delay: 1000, //debounce 1 second
 		},
 		select: {
 			title: 'City',
