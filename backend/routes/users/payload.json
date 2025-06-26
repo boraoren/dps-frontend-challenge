@@ -1,0 +1,40 @@
+{
+  "filters": {
+    "name": {
+      "title": "Name",
+      "titleBold": true
+    },
+    "select": {
+      "title": "City",
+      "titleBold": true,
+      "placeHolder": "Select City"
+    },
+    "checkbox": {
+      "title": "Highlight oldest per city"
+    }
+  },
+  "options": {
+    "select": [
+      "id",
+      "name",
+      "firstName",
+      "lastName",
+      "address.city",
+      "birthDate"
+    ],
+    "concat": [
+      {
+        "values": ["firstName", "lastName"],
+        "to": "name"
+      },
+      {
+        "values": ["birthDate"],
+        "to": "Birthday"
+      }
+    ]
+  },
+  "pagination": {
+    "limit": 15,
+    "skip": 0
+  }
+}
