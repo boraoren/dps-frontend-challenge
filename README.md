@@ -1,5 +1,8 @@
 # DPS Frontend Coding Challenge
 
+![image](./img.png)
+
+
 ## Table of contents
 
 1. [Check project scope](#project-scope)
