@@ -8,7 +8,7 @@ export interface TableListItem {
 interface Pagination {
 	limit: number;
 	skip: number;
-	total: number;
+	total?: number;
 }
 
 interface Table {

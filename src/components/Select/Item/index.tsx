@@ -2,7 +2,7 @@ import SelectOption from './index.option.ts';
 import './index.css';
 
 interface SelectItemProps {
-	selectOptions: SelectOption[];
+	selectOptions: SelectOption[] | [];
 	placeHolder: string;
 	onChange: (selected: string) => void;
 }

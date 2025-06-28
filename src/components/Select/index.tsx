@@ -9,7 +9,7 @@ export interface SelectProps {
 	titleBold?: boolean;
 	onChange: (selected: string) => void;
 	placeHolder: string;
-	options: SelectOption[];
+	options?: SelectOption[];
 }
 
 const logger = Utilities.logger.getComponentLogger();
@@ -17,7 +17,7 @@ const LOGGER_PATH = '/Select';
 
 const Select = (props: SelectProps) => {
 
-	const { title, titleBold, onChange, placeHolder, options } = props;
+	const { title, titleBold, onChange, placeHolder, options=[] } = props;
 
 	const handleOnChange = (selected: string) => {
 		logger.debug(LOGGER_PATH, {selected});

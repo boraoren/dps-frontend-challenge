@@ -11,14 +11,14 @@ export interface TableListItem {
 interface Pagination {
 	limit: number;
 	skip: number;
-	total: number;
+	total?: number;
 }
 
 interface Table {
 	tableHeaders: string[];
-	tableListItems: TableListItem[];
+	tableListItems: TableListItem[] | [];
 	pagination: Pagination;
-	oldestPerCity: boolean;
+	oldestPerCity?: boolean;
 }
 
 

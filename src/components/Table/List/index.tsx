@@ -23,7 +23,7 @@ const TableList = (props: TableListProps) => {
 		onScrollEnd: () => {
 			onScrollEnd();
 		},
-		offset: 1
+		offset: 0.5
 	});
 
 	if(items?.length === 0){

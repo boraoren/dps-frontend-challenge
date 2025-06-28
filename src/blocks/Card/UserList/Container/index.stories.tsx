@@ -22,16 +22,18 @@ export const Integration: Story = {
 				title: 'Name',
 				titleBold: true,
 				delay: 0,
+				onChange: () => {}
 			},
-
 			select: {
 				title: 'City',
 				titleBold: true,
 				placeHolder: 'Select City',
+				onChange: () => {},
 			},
 
 			checkbox: {
 				title: 'Highlight oldest per city',
+				onChange: () => {}
 			},
 		},
 		options: {
